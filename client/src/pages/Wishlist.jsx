@@ -16,7 +16,7 @@ const Wishlist = () => {
 
 
   return (
-    <div className="px-6 py-8">
+    <div className="px-6 py-2">
        <div className='flex flex-wrap gap-2 items-center px-4 sm:px-10 py-4'>
         
          <Link to="/"><BiHomeAlt  className='size-12 pr-4'/></Link>

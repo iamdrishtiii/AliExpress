@@ -21,10 +21,9 @@ const DetailPage = () => {
   return (
     <div>
       <div className='flex flex-wrap gap-2 items-center px-4 sm:px-10 py-4'>
-
         <Link to="/"><BiHomeAlt className='size-12 pr-4' /></Link>
-        <Link to="/"><img src="../Logo.webp" alt="Logo" width="150px" height="50px" /></Link>
-        <Link to='/wishlist' className='relative'>
+        <h1 className='text-2xl font-bold hidden md:block'> Detail page</h1>
+        <Link to='/wishlist' className='absolute right-44'>
           <div className='bg-black text-white p-4 rounded-xl flex items-center gap-1'>
             <CiHeart className='size-8' />
             <span className='text-xs'>Wishlist</span>
@@ -35,7 +34,7 @@ const DetailPage = () => {
             </span>
           )}
         </Link>
-        <Link to='/cart' className='relative'>
+        <Link to='/cart' className='absolute right-20'>
           <div className='bg-black text-white p-4 rounded-xl flex items-center gap-1'>
             <CiShoppingCart className='size-8' />
             <span className='text-xs'>Cart</span>
@@ -46,14 +45,14 @@ const DetailPage = () => {
             </span>
           )}
         </Link>
-        <Link to='/auth'>
+        <Link to='/auth' className='absolute right-2'>
           <div className='border-gray-200 border-2 p-4 rounded-xl'><CgProfile className='size-8' /></div>
         </Link>
       </div>
       {productData.map((item) => {
         return <div className='left p-5 text-xl sm:text-2xl lg:flex lg:flex-row'>
           <div className='  font-bold lg:w-1/2 flex flex-col  '>
-            <img src={item.image} alt="" className='w-11/12 item-center pt-10' /></div> <br />
+            <img src={item.image} alt={item.title} className='w-11/12 item-center pt-10' /></div> <br />
           <div className='lg:w-1/2'>
             <p className='text-2xl lg:text-3xl'>{item.title}</p> <br />
 
