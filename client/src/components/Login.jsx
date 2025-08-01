@@ -5,6 +5,7 @@ import { MdMovie } from 'react-icons/md';
 import { Modal, Box, Typography } from '@mui/material';
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { FaRegEyeSlash } from "react-icons/fa"
+import Navbar from "./Navbar";
 const Login = ({ setActive }) => {
   const style = {
     position: 'absolute',
@@ -100,8 +101,8 @@ const Login = ({ setActive }) => {
 }
 
   return (
-    <div className="flex flex-col min-h-screen">
-
+    <div className="flex flex-col min-h-screen  pb-[1000px] md:pb-[500px] lg:pb-[400px]">
+      <Navbar/>
       <div className="flex flex-col items-center justify-center h-full  bg-white">
         <div className="bg-gray-100 rounded-2xl flex flex-col gap-3 shadow-lg m-3 sm:m-6 p-4 sm:p-8 sm:px-16 ">
           <h2 className="text-[42px] text-black mb-4">Login</h2>

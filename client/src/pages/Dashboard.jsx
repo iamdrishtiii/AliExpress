@@ -6,7 +6,6 @@ import { FaSearch, FaBars } from 'react-icons/fa'
 import { Link } from 'react-router-dom';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 import { CgProfile } from 'react-icons/cg';
-import Footer from '../components/Footer';
 const Dashboard = () => {
   const [searchProduct, setSearchProduct] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -47,7 +46,7 @@ const Dashboard = () => {
   const wishCount = wishlistItems.reduce((total, item) => total + item.quantity, 0);
 
   return (
-    <div>
+    <div className='pb-[1000px] md:pb-[500px] lg:pb-[400px]'>
       {/* Top bar */}
       <div className='flex flex-wrap gap-2 items-center px-4 sm:px-10 py-6'>
        <img src="../Logo.webp" alt="Logo" width="150px" height="50px" />
@@ -197,7 +196,6 @@ const Dashboard = () => {
         )}
       </div>
     
-    <Footer />
     </div>
     
   );
