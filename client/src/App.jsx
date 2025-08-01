@@ -20,7 +20,6 @@ const App = () => {
           <Route path='/:id/:color/:price/:brand' element={<DetailPage/>}/>
 
         </Routes>
-        <Footer />
       </BrowserRouter>
 
     </div>

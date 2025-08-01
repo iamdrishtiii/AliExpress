@@ -6,6 +6,7 @@ import { FaSearch, FaBars } from 'react-icons/fa'
 import { Link } from 'react-router-dom';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 import { CgProfile } from 'react-icons/cg';
+import Footer from '../components/Footer';
 const Dashboard = () => {
   const [searchProduct, setSearchProduct] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -52,14 +53,14 @@ const Dashboard = () => {
        <img src="../Logo.webp" alt="Logo" width="150px" height="50px" />
         <input
           placeholder='Search for Product'
-          className='border-black border-2 text-xl rounded-xl px-4 py-2 flex-1 min-w-[200px]'
+          className='border-black border-2 text-xl rounded-xl px-4 py-2 mb-4 sm:mb-0 flex-1 min-w-[200px]'
           value={searchProduct}
           onChange={(e) => {
             setSearchProduct(e.target.value);
             setCurrentPage(1); // reset to first page on new search
           }}
         />
-
+         <div className='flex flex-row gap-2'>
         <Link to='/wishlist' className='relative'>
           <div className='bg-black text-white p-4 rounded-xl flex items-center gap-1'>
             <CiHeart  className='size-8'/>
@@ -85,7 +86,7 @@ const Dashboard = () => {
         <Link to='/auth'>
           <div className='border-gray-200 border-2 p-4 rounded-xl'><CgProfile className='size-8'/></div>
         </Link>
-      </div>
+      </div></div>
 
       {/* Category dropdown */}
       <div className="px-4 sm:px-10">
@@ -195,7 +196,10 @@ const Dashboard = () => {
           </div>
         )}
       </div>
+    
+    <Footer />
     </div>
+    
   );
 };
 

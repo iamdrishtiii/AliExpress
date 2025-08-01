@@ -5,6 +5,7 @@ import { Link, useParams } from 'react-router-dom'
 import { addToCart, addToWishlist } from '../action'
 import { CgProfile } from 'react-icons/cg'
 import { BiHomeAlt } from 'react-icons/bi'
+import Footer from '../components/Footer'
 
 const DetailPage = () => {
   const products = useSelector((state) => state.products.products)
@@ -20,7 +21,7 @@ const DetailPage = () => {
   const wishCount = wishlistItems.reduce((total, item) => total + item.quantity, 0);
   return (
     <div>
-      <div className='flex flex-wrap gap-2 items-center px-4 sm:px-10 py-4'>
+      <div className='flex flex-wrap gap-2 items-center px-2 sm:px-10 py-4'>
         <Link to="/"><BiHomeAlt className='size-12 pr-4' /></Link>
         <h1 className='text-2xl font-bold hidden md:block'> Detail page</h1>
         <Link to='/wishlist' className='absolute right-44'>

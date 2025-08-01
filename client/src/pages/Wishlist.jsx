@@ -16,12 +16,12 @@ const Wishlist = () => {
 
 
   return (
-    <div className="px-6 py-2">
-       <div className='flex flex-wrap gap-2 items-center px-4 sm:px-10 py-4'>
+    <div className="py-2">
+       <div className='flex flex-wrap gap-2 items-center px-2 sm:px-10 py-4'>
         
          <Link to="/"><BiHomeAlt  className='size-12 pr-4'/></Link>
-        <Link to="/"><img src="../Logo.webp" alt="Logo" width="150px" height="50px" /></Link>
-        <Link to='/wishlist' className='relative'>
+        <Link to="/"><img src="../Logo.webp"className='hidden md:block' alt="Logo" width="150px" height="50px" /></Link>
+        <Link to='/wishlist'  className='absolute right-44'>
           <div className='bg-black text-white p-4 rounded-xl flex items-center gap-1'>
             <CiHeart  className='size-8' />
             <span className='text-xs'>Wishlist</span>
@@ -32,7 +32,7 @@ const Wishlist = () => {
             </span>
           )}
         </Link>
-        <Link to='/cart' className='relative'>
+        <Link to='/cart'  className='absolute right-20'>
           <div className='bg-black text-white p-4 rounded-xl flex items-center gap-1'>
             <CiShoppingCart  className='size-8' />
             <span className='text-xs'>Cart</span>
@@ -43,10 +43,11 @@ const Wishlist = () => {
             </span>
           )}
         </Link>
-        <Link to='/auth'>
+        <Link to='/auth'  className='absolute right-2'>
           <div className='border-gray-200 border-2 p-4 rounded-xl'><CgProfile className='size-8'/></div>
         </Link>
       </div>
+      <div className='p-5'>
       <h2 className="text-3xl font-bold mb-6">Your Wishlist</h2>
       {wishlistItems.length === 0 ? (
         <p className="text-xl text-gray-600">Your Wishlist is empty.</p>
@@ -79,7 +80,7 @@ const Wishlist = () => {
           ))}
         </ul>
       )}
-    </div>
+    </div></div>
   );
 };
 
