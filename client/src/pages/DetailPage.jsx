@@ -19,7 +19,7 @@ const DetailPage = () => {
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
   const wishCount = wishlistItems.reduce((total, item) => total + item.quantity, 0);
   return (
-    <div className="py-7 pb-[1000px] md:pb-[500px] lg:pb-[400px]">
+    <div className="py-7 pb-[1150px] md:pb-[610px] lg:pb-[500px]">
       <div className='flex flex-wrap gap-2 items-center px-2 sm:px-10 py-4'>
         <Link to="/"><BiHomeAlt className='size-12 pr-4' /></Link>
         <h1 className='text-3xl font-bold hidden md:block'> Detail page</h1>
@@ -51,51 +51,51 @@ const DetailPage = () => {
       </div>
       <div className='p-5'>
         {productData.map((item) => {
-          return <div className='left text-xl sm:text-2xl lg:flex lg:flex-row'>
+          return <div className='left text-md sm:text-lg lg:flex lg:flex-row'>
             <div className='  font-bold lg:w-1/2 flex flex-col  '>
               <img src={item.image} alt={item.title} className='w-11/12 item-center pt-10' /></div> <br />
             <div className='lg:w-1/2'>
-              <p className='text-2xl lg:text-3xl'>{item.title}</p> <br />
+              <p className='text-lg lg:text-2xl'>{item.title}</p> <br />
 
               <div className="flex flex-row max-sm:flex-col max-sm:gap-4 max-sm:justify-start justify-between mt-5">
                 <div className="flex flex-col max-sm:flex-row max-sm:gap-4 gap-2 items-center">
-                  <p className="text-[27px] max-sm:text-[23px] text-gray-500 font-semibold">
+                  <p className="text-[22px] max-sm:text-[18px] text-gray-500 font-semibold">
                     Price
                   </p>
-                  <p className="text-[23px]">Rs. {item.price} </p>
+                  <p className="text-[18px]">Rs. {item.price} </p>
                 </div>
 
                 <div className="flex flex-col max-sm:flex-row max-sm:gap-4  gap-2 items-center">
-                  <p className="text-[27px] max-sm:text-[23px] text-gray-500 font-semibold">
+                  <p className="text-[22px] max-sm:text-[18px] text-gray-500 font-semibold">
                     Color
                   </p>
-                  <p className="text-[23px]">{item.color}</p>
+                  <p className="text-[18px]">{item.color}</p>
                 </div>
                 <div className="flex flex-col max-sm:flex-row max-sm:gap-4  gap-2 items-center">
-                  <p className="text-[27px] max-sm:text-[23px] text-gray-500 font-semibold">
+                  <p className="text-[22px] max-sm:text-[18px] text-gray-500 font-semibold">
                     Brand
                   </p>
-                  <p className="text-[23px]">{item.brand} </p>
+                  <p className="text-[18px]">{item.brand} </p>
                 </div>
 
                 <div className="flex flex-col max-sm:flex-row max-sm:gap-4  gap-2 items-center">
-                  <p className="text-[27px] max-sm:text-[23px] text-gray-500 font-semibold  mb-4 sm:mb-0">
+                  <p className="text-[22px] max-sm:text-[18px] text-gray-500 font-semibold  mb-4 sm:mb-0">
                     Model
                   </p>
-                  <p className="text-[23px]">{item.model}</p>
+                  <p className="text-[18px]">{item.model}</p>
                 </div>
               </div>
 
               <br />
               <br />
-              <h2 className="text-[27px] max-sm:text-[23px] text-gray-500 font-semibold">Discription</h2>
-              {item.description} <br />  <br />
+              <h2 className="text-[22px] max-sm:text-[18px] text-gray-500 font-semibold">Discription</h2>
+              <p className='text-[15px]'>{item.description}</p><br />  <br />
 
-              <div className="sm:flex sm:flex-row gap-4 justify-center">
+              <div className="sm:flex sm:flex-row gap-4 justify-center text-sm">
                 <button
                   onClick={() => dispatch(addToCart(item))}
                   className="border-orange-400 border-2 px-4 sm:px-12 py-2  text-orange m-2 flex flex-row gap-2">
-                  <CiShoppingCart className="size-8" />Add to Cart</button>
+                  <CiShoppingCart className="size-6" />Add to Cart</button>
                 <button
                   onClick={() => {
                     const exists = wishlistItems.some((product) => product.id === item.id);
@@ -103,7 +103,7 @@ const DetailPage = () => {
                       dispatch(addToWishlist(item));
                     }
                   }}
-                  className="px-4 py-2  m-2 flex flex-row text-orange gap-2"> <CiHeart className='size-8' /> Add to Wishlist </button>
+                  className="px-4 py-2  m-2 flex flex-row text-orange gap-2"> <CiHeart className='size-6' /> Add to Wishlist </button>
               </div>
             </div>
           </div>

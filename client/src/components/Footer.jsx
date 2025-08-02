@@ -12,7 +12,7 @@ const Footer = () => {
     return (
         <div className="absolute bottom-0 w-full bg-gray-100">
             <footer className="border-t border-black mt-1 bg-white text-gray-700">
-                <div className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
+                <div className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-4 gap-8 text-[16px]">
                     {/* Logo and Contact */}
                     <div>
                         <div><img src="../Logo.webp" alt="" width="150px" /></div>

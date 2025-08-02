@@ -101,93 +101,78 @@ const Login = ({ setActive }) => {
 }
 
   return (
-    <div className="flex flex-col min-h-screen  pb-[1000px] md:pb-[500px] lg:pb-[400px]">
-      <Navbar/>
-      <div className="flex flex-col items-center justify-center h-full  bg-white">
-        <div className="bg-gray-100 rounded-2xl flex flex-col gap-3 shadow-lg m-3 sm:m-6 p-4 sm:p-8 sm:px-16 ">
-          <h2 className="text-[42px] text-black mb-4">Login</h2>
-          <div className="mb-4">
+     <div className="flex flex-col min-h-screen py-2 pb-32 pb-[1150px] md:pb-[610px] lg:pb-[500px]">
+      <Navbar />
+      <div className="flex flex-1 items-center justify-center px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-xl shadow-xl">
+          <h2 className="text-center text-3xl font-extrabold text-gray-900">Login to your Account</h2>
+
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email address</label>
             <input
               type="email"
               id="email"
-              className="mt-1 py-2 px-4 text-black outline-none bg-white text-[20px] block w-full rounded-md shadow-sm focus:ring-opacity-50"
+              className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-black focus:border-black sm:text-sm"
+              placeholder="you@example.com"
               value={email}
-              placeholder="Enter Email"
-              // onChange={(e) => setEmail(e.target.value)}
-              onChange={handleChange}
+              onChange={(e) => validateEmail(e.target.value)}
               required
             />
-            <p style={{ color: "red" }}>{error.emailError}</p>
-            <div className="h-[1.3px] mt-3 w-full bg-gray-400"></div>
+            {error.emailError && <p className="text-red-500 text-xs mt-1">{error.emailError}</p>}
           </div>
-          <div className="mb-4">
-            <div className="flex items-center">
+
+          <div className="mt-4">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+            <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
-                className="mt-1 py-2 px-4 text-black outline-none bg-white text-[20px] block w-full rounded-md shadow-sm focus:ring-opacity-50"
-                value={password}
+                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-black focus:border-black sm:text-sm"
                 placeholder="Password"
-                // onChange={(e) => setPassword(e.target.value)}
-                onChange={handleChange}
+                value={password}
+                onChange={(e) => validatePassword(e.target.value)}
                 required
               />
-              
-              
-              <div onClick={() => setShowPassword(!showPassword)}>
-                {showPassword ? (
-                  <FaRegEyeSlash color="white" />
-                ) : (
-                  <MdOutlineRemoveRedEye color="white" />
-                )}
+              <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 cursor-pointer"
+                onClick={() => setShowPassword(!showPassword)}>
+                {showPassword ? <FaRegEyeSlash /> : <MdOutlineRemoveRedEye />}
               </div>
             </div>
-
-             <p style={{ color: "red" }}>{error.passwordError}</p>
-              
-            <div className="h-[1.3px] mt-3 w-full bg-gray-400"></div>
+            {error.passwordError && <p className="text-red-500 text-xs mt-1">{error.passwordError}</p>}
           </div>
-          <button className="w-full bg-black text-white py-2 px-4 rounded-md hover:bg-gray-500 focus:outline-none focus:bg-gray-600"
-            onClick={handleLogin}>
-            Login to your Account </button>
-          <div className="mt-4 text-[16px] flex gap-1 text-black mx-auto">
-            <p>Didn't have an account ?</p>
-            <button
-              className="text-gray-600 hover:underline focus:outline-none"
-              onClick={() => setActive(0)}
-            >
-              Sign Up
-            </button>
+
+          <button
+            onClick={handleLogin}
+            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-700 focus:outline-none"
+          >
+            Login
+          </button>
+
+          <div className="text-center text-sm text-gray-600">
+            Don't have an account?{' '}
+            <button onClick={() => setActive(0)} className="font-medium text-black hover:underline">Sign Up</button>
           </div>
         </div>
       </div>
 
-
-      <Modal
-        open={openModal}
-        onClose={() => setOpenModal(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+      <Modal open={openModal} onClose={() => setOpenModal(false)}>
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            <div className='flex flex-row gap-2 text-sm'>
-              {modalMessage === "Login Successfully!" ? (
-                <>
-                  <p className='pt-1'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" className="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                  </svg></p>
-                  {modalMessage}
-                </>
-              ) : (
-                <>
-                  <p className='pt-1'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" className="bi bi-x-circle-fill" viewBox="0 0 16 16">
-                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.646 4.646a.5.5 0 0 0 0 .708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646a.5.5 0 0 0-.708 0z" />
-                  </svg></p>
-                  {modalMessage}
-                </>
-              )}
-            </div>
+          <Typography className="flex items-center gap-2 text-sm">
+            {modalMessage === "Login Successfully!" ? (
+              <>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" className="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                </svg>
+                {modalMessage}
+              </>
+            ) : (
+              <>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" className="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.646 4.646a.5.5 0 0 0 0 .708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646a.5.5 0 0 0-.708 0z" />
+                </svg>
+                {modalMessage}
+              </>
+            )}
           </Typography>
         </Box>
       </Modal>

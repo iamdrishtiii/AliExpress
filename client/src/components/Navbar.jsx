@@ -14,35 +14,33 @@ const Navbar = () => {
 
   return (
     <div>
-        <div className="flex flex-wrap gap-2 items-center px-2 sm:px-10 py-4">
-        <Link to="/"><BiHomeAlt className='size-12 pr-4' /></Link>
-        <Link to="/" > <img src="../Logo.webp" className='hidden md:block' alt="Logo" width="150px" height="50px" /></Link>
-        <Link to="/wishlist" className='absolute right-44'>
-          <div className="bg-black text-white p-4 rounded-xl flex items-center gap-1">
-            <CiHeart className='size-8' />
-            <span className="text-xs">Wishlist</span>
-          </div>
-          {wishlistItems.length > 0 && (
-            <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-              {wishlistItems.length}
-            </span>
-          )}
-        </Link>
-        <Link to="/cart" className='absolute right-20'>
-          <div className="bg-black text-white p-4 rounded-xl flex items-center gap-1">
-            <CiShoppingCart className='size-8' />
-            <span className="text-xs">Cart</span>
-          </div>
-          {cartItems.length > 0 && (
-            <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-              {cartItems.length}
-            </span>
-          )}
-        </Link>
-        <Link to="/auth" className='absolute right-2'>
-          <div className="border-gray-200 border-2 p-4 rounded-xl"><CgProfile className='size-8' /></div>
-        </Link>
-      </div>
+       <header className="bg-white shadow sticky top-0 z-50 mb-10">
+               <div className="flex flex-wrap justify-between items-center px-6 py-4">
+                <Link to="/"><BiHomeAlt className='size-12 pr-4' /></Link>
+                <Link to="/"> <img src="../Logo.webp" alt="Logo" className="w-36" /></Link>
+                 <div className="flex items-center gap-4">
+                   <Link to="/wishlist" className="relative">
+                     <CiHeart className="text-3xl" />
+                     {wishCount > 0 && (
+                       <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                         {wishCount}
+                       </span>
+                     )}
+                   </Link>
+                   <Link to="/cart" className="relative">
+                     <CiShoppingCart className="text-3xl" />
+                     {cartCount > 0 && (
+                       <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                         {cartCount}
+                       </span>
+                     )}
+                   </Link>
+                   <Link to="/auth">
+                     <CgProfile className="text-3xl" />
+                   </Link>
+                 </div>
+               </div>
+             </header>
     </div>
   )
 }
