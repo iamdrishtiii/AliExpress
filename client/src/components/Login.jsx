@@ -124,7 +124,7 @@ const Login = ({ setActive }) => {
             {error.emailError && <p className="text-red-500 text-xs mt-1">{error.emailError}</p>}
           </div>
 
-          <div className="mt-4">
+          <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
             <div className="relative">
               <input

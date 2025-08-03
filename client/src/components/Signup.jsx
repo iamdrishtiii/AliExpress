@@ -134,10 +134,11 @@ const Signup = ({ setActive }) => {
     <div className="flex flex-col min-h-screen pb-32 pb-[1150px] md:pb-[610px] lg:pb-[500px] bg-slate-100">
       <Navbar />
       <div className="flex justify-center items-center flex-1">
-        <div className="bg-white shadow-xl rounded-xl px-8 py-10 w-full max-w-md">
-          <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Create Account</h2>
+        <div className="bg-white shadow-xl rounded-xl p-8 w-full max-w-md">
+          <h2 className="text-3xl font-extrabold mb-6 text-center text-gray-800">Create Account</h2>
 
           <div className="mb-4">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email address</label>
             <input
               type="email"
               id="email"
@@ -150,6 +151,7 @@ const Signup = ({ setActive }) => {
           </div>
 
           <div className="mb-4 relative">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
             <input
               type={showPassword ? "text" : "password"}
               id="password"
@@ -165,6 +167,7 @@ const Signup = ({ setActive }) => {
           </div>
 
           <div className="mb-4 relative">
+            <label htmlFor="repeatpassword" className="block text-sm font-medium text-gray-700">Repeat Password</label>
             <input
               type={repeatShowPassword ? "text" : "password"}
               id="repeatPassword"
