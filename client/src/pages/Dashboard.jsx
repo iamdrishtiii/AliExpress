@@ -196,9 +196,10 @@ const Dashboard = () => {
                           <h3 className="font-semibold text-base mb-1 line-clamp-2">{item.title}</h3>
                         </Link>
                         <div className="text-sm">
-                          <p className="text-gray-500 line-through">₹{item.price}</p>
-                          <p className="text-green-600 font-semibold flex flex-wrap"><FaLongArrowAltDown className='h-5'/>{item.discount}% OFF</p>
-                          <p className="text-black font-bold">  ₹{discountedPrice}</p>
+                          <div className='flex flex-wrap gap-2'>
+                          <p className="text-gray-500 line-through pl-2">₹{item.price}</p>
+                          <p className="text-green-600 font-semibold flex flex-wrap"><FaLongArrowAltDown className='h-5'/>{item.discount}% OFF</p></div>
+                          <p className="text-black font-bold pl-2">  ₹{discountedPrice}</p>
                           
                         </div>
                       </div>

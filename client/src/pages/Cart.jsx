@@ -33,7 +33,13 @@ const Cart = () => {
             {/* Cart Items Grid */}
             <div className="lg:col-span-2 space-y-6">
               {cartItems.map((item) => {
-                const discountedPrice = Math.round(item.price - (item.price * item.discount / 100));
+                let discountedPrice = 0;
+                if (item.discount) {
+                  discountedPrice = Math.round(item.price - (item.price * item.discount / 100));
+                }
+                else {
+                  discountedPrice = (item.price)
+                }
                 return (
                   <div
                     key={item.id}
@@ -58,8 +64,8 @@ const Cart = () => {
                         </button>
                       </div>
                       <p className="mt-2 text-sm text-gray-700 line-through">Price: Rs. {item.price}</p>
-                      <p className="text-green-600 font-semibold flex flex-wrap gap-1"><FaLongArrowAltDown className='h-5' />{item.discount}% OFF 
-                      <p className="text-sm text-gray-700 pl-2"> Rs. {discountedPrice}</p></p>
+                      <p className="text-green-600 font-semibold flex flex-wrap gap-1"><FaLongArrowAltDown className='h-5' />{item.discount || 0}% OFF
+                        <p className="text-sm text-gray-700 pl-2"> Rs. {discountedPrice}</p></p>
 
                       <p className="font-semibold text-orange-600 mt-1">
                         Total: Rs. {discountedPrice * item.quantity}

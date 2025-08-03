@@ -3,6 +3,7 @@ import { CiHeart, CiShoppingCart } from 'react-icons/ci';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromWishlist } from '../action';
 import Navbar from '../components/Navbar';
+import { FaLongArrowAltDown } from 'react-icons/fa';
 
 const Wishlist = () => {
   const wishlistItems = useSelector((state) => state.wishlistItems);
@@ -24,7 +25,15 @@ const Wishlist = () => {
 
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {/* Wishlisted Product Grid */}
-            {wishlistItems.map((item) => (
+            {wishlistItems.map((item) => {
+              let discountedPrice = 0;
+                if (item.discount) {
+                  discountedPrice = Math.round(item.price - (item.price * item.discount / 100));
+                }
+                else {
+                  discountedPrice = (item.price)
+                }
+            return(
               <div
                 key={item.id}
                 className="bg-white p-5 rounded-2xl shadow-md hover:shadow-lg  flex flex-col"
@@ -35,7 +44,10 @@ const Wishlist = () => {
                   className="w-44 h-48 mb-4 rounded-lg "
                 />
                 <h3 className="text-md font-semibold text-gray-800 line-clamp-3 mb-1">{item.title}</h3>
-                <p className="font-semibold text-orange-600 mb-4">Rs. {item.price}</p>
+                <p className="font-semibold text-orange-600 mb-4 line-through">Rs. {item.price}</p>
+                <p className="text-green-600 font-semibold flex flex-wrap gap-1"><FaLongArrowAltDown className='h-5' />{item.discount || 0}% OFF
+                <p className="text-sm text-gray-700 pl-2 pb-6"> Rs. {discountedPrice}</p></p>
+
                 <div className="mt-auto flex flex-col gap-3">
                   <button
                     onClick={() => dispatch(addToCart(item))}
@@ -53,7 +65,7 @@ const Wishlist = () => {
                   </button>
                 </div>
               </div>
-            ))}
+            )})}
           </div>
         )}
       </div>
