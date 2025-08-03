@@ -20,6 +20,8 @@ const DetailPage = () => {
   const wishCount = wishlistItems.reduce((total, item) => total + item.quantity, 0);
   return (
     <div className="py-7 pb-[1100px] md:pb-[600px] lg:pb-[500px]">
+
+      {/* Header Section */}
       <header className="bg-white shadow sticky top-0 z-50 mb-10 py-4 ">
         <div className="flex flex-wrap justify-between items-center px-6 py-4">
           <Link to="/"><BiHomeAlt className='size-12 pr-4' /></Link>
@@ -53,7 +55,7 @@ const DetailPage = () => {
             key={item.id}
             className="flex flex-col lg:flex-row gap-10 bg-white p-6 rounded-2xl shadow-md"
           >
-            {/* Left - Image */}
+            {/* Image of Selected Item */}
             <div className="lg:w-1/2 flex items-center justify-center">
               <img
                 src={item.image}
@@ -62,7 +64,7 @@ const DetailPage = () => {
               />
             </div>
 
-            {/* Right - Details */}
+            {/*  Details of Selected Item */}
             <div className="lg:w-1/2">
               <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">{item.title}</h1>
 

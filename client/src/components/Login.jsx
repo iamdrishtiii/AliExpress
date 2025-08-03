@@ -1,22 +1,22 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { MdMovie } from 'react-icons/md';
 import { Modal, Box, Typography } from '@mui/material';
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { FaRegEyeSlash } from "react-icons/fa"
 import Navbar from "./Navbar";
+
 const Login = ({ setActive }) => {
   const style = {
     position: 'absolute',
-    bottom: '0',
+    top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 250,
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    border: 'none',
     boxShadow: 24,
-    p: 1,
+    p: 3,
+    borderRadius:'16px'
   };
 
   const [email, setEmail] = useState("");
@@ -85,23 +85,26 @@ const Login = ({ setActive }) => {
 
 
   const handleLogin = () => {
-    if (validateEmail(email)&&validatePassword(password)) {
+    if (validateEmail(email) && validatePassword(password)) {
 
-    // const userData = {
-    //   email: email,
-    //   password: password
-    // };
-    setModalMessage("Login Successfully!");
-    setOpenModal(true);
-    setTimeout(() => setOpenModal(false), 2000);
-    setEmail("")
-    setPassword("")
-    navigate("/");
-  };
-}
+      // const userData = {
+      //   email: email,
+      //   password: password
+      // };
+      setModalMessage("Login Successfully!");
+      setOpenModal(true);
+      setEmail("")
+      setPassword("")
+      setTimeout(() => {
+        setOpenModal(false)
+        navigate("/")
+      }, 2000);
+
+    };
+  }
 
   return (
-     <div className="flex flex-col min-h-screen pb-32 pb-[1150px] md:pb-[610px] lg:pb-[500px]">
+    <div className="flex flex-col min-h-screen pb-32 pb-[1150px] md:pb-[610px] lg:pb-[500px]">
       <Navbar />
       <div className="flex flex-1 items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-xl shadow-xl">

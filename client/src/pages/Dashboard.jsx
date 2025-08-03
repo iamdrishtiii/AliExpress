@@ -8,6 +8,7 @@ import { CgProfile } from 'react-icons/cg';
 import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
+  const [loading, setLoading] = useState(true);
   const [searchProduct, setSearchProduct] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -24,6 +25,12 @@ const Dashboard = () => {
     dispatch(getproducts());
     dispatch(getcategories());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (products || [].length > 0 && categories||[].length > 0) {
+      setLoading(false);
+    }
+  }, [products, categories])
 
   const filteredProducts = (products || [])
     .filter((item) => selectedCategory === 'all' || item.category === selectedCategory)
@@ -43,6 +50,8 @@ const Dashboard = () => {
       <header className="bg-white shadow sticky top-0 z-50 pt-4 pb-5">
         <div className="flex flex-wrap justify-between items-center px-6 py-4">
           <img src="../Logo.webp" alt="Logo" className="w-36 pl-12" />
+
+          {/* Search Bar */}
           <input
             type="text"
             placeholder="Search for products..."
@@ -53,7 +62,10 @@ const Dashboard = () => {
               setCurrentPage(1);
             }}
           />
+
           <div className="flex items-center gap-4 ml-12 md:ml-0">
+
+            {/* Wishlist Icon */}
             <Link to="/wishlist" className="relative">
               <CiHeart className="text-3xl" />
               {wishCount > 0 && (
@@ -62,6 +74,8 @@ const Dashboard = () => {
                 </span>
               )}
             </Link>
+
+            {/* Cart Icon */}
             <Link to="/cart" className="relative">
               <CiShoppingCart className="text-3xl" />
               {cartCount > 0 && (
@@ -70,6 +84,8 @@ const Dashboard = () => {
                 </span>
               )}
             </Link>
+
+            {/* Authentication Profile Icon*/}
             <Link to="/auth">
               <CgProfile className="text-3xl" />
             </Link>
@@ -114,46 +130,54 @@ const Dashboard = () => {
         )}
       </div>
 
-      {/* Product Grid */}
-      <div className="px-6 mt-4">
-        <h2 className="text-xl font-semibold mb-4 capitalize">{selectedCategory} Products</h2>
-        {currentProducts.length ? (
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {currentProducts.map((item) => (
-              <div key={item.id} className="bg-white rounded-lg shadow hover:shadow-md hover:bg-gray-100 p-4 flex flex-col justify-between">
-                <Link to={`/${item.id}/${item.color}/${item.price}/${item.brand}`}>
-                  <img src={item.image} alt={item.title} className="w-44 h-48  mb-2" />
-                  <h3 className="font-semibold text-base mb-1 line-clamp-3">{item.title}</h3>
-                  <p className="font-bold text-orange-500">₹{item.price}</p>
-                </Link>
-                <div className="mt-4 flex flex-col gap-2">
-                  <button
-                    className="border border-orange-500 text-orange-500 rounded-lg py-1 hover:bg-orange-50"
-                    onClick={() => dispatch(addToCart(item))}
-                  >
-                    <div className="flex items-center justify-center gap-2">
-                      <CiShoppingCart /> Add to Cart
-                    </div>
-                  </button>
-                  <button
-                    className="border border-pink-400 text-pink-500 rounded-lg py-1 hover:bg-pink-50"
-                    onClick={() => {
-                      const exists = wishlistItems.some((product) => product.id === item.id);
-                      if (!exists) dispatch(addToWishlist(item));
-                    }}
-                  >
-                    <div className="flex items-center justify-center gap-2">
-                      <CiHeart /> Add to Wishlist
-                    </div>
-                  </button>
+      {loading ? (
+        <div className="flex justify-center items-center h-96">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-orange-500"></div>
+        </div>
+      ) : (
+        < div className="px-6 mt-4">
+          {/* Product Grid */}
+          <h2 className="text-xl font-semibold mb-4 capitalize">{selectedCategory} Products</h2>
+          {currentProducts.length ? (
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              {currentProducts.map((item) => (
+                <div key={item.id} className="bg-white rounded-lg shadow hover:shadow-md hover:bg-gray-100 p-4 flex flex-col justify-between">
+                  <Link to={`/${item.id}/${item.color}/${item.price}/${item.brand}`}>
+                    <img src={item.image} alt={item.title} className="w-44 h-48  mb-2" />
+                    <h3 className="font-semibold text-base mb-1 line-clamp-3">{item.title}</h3>
+                    <p className="font-bold text-orange-500">₹{item.price}</p>
+                  </Link>
+                  <div className="mt-4 flex flex-col gap-2">
+                    <button
+                      className="border border-orange-500 text-orange-500 rounded-lg py-1 hover:bg-orange-50"
+                      onClick={() => dispatch(addToCart(item))}
+                    >
+                      <div className="flex items-center justify-center gap-2">
+                        <CiShoppingCart /> Add to Cart
+                      </div>
+                    </button>
+                    <button
+                      className="border border-pink-400 text-pink-500 rounded-lg py-1 hover:bg-pink-50"
+                      onClick={() => {
+                        const exists = wishlistItems.some((product) => product.id === item.id);
+                        if (!exists) dispatch(addToWishlist(item));
+                      }}
+                    >
+                      <div className="flex items-center justify-center gap-2">
+                        <CiHeart /> Add to Wishlist
+                      </div>
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p className="text-center text-red-500 text-lg">No products found.</p>
-        )}
-      </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-red-500 text-lg">No products found.</p>
+          )}
+        </div>
+      )}
+
+
 
       {/* Pagination */}
       {totalPages > 1 && (
@@ -174,8 +198,11 @@ const Dashboard = () => {
             <MdKeyboardArrowRight />
           </button>
         </div>
-      )}
-    </div>
+      )
+      }
+
+    </div >
+
   );
 };
 

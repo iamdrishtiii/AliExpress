@@ -11,14 +11,15 @@ import Navbar from "./Navbar";
 const Signup = ({ setActive }) => {
   const style = {
     position: 'absolute',
-    bottom: '0',
+    top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 250,
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    border: 'none',
     boxShadow: 24,
-    p: 1,
+    p: 3,
+    borderRadius: '16px'
   };
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -119,15 +120,18 @@ const Signup = ({ setActive }) => {
     if (validateEmail(email) && validatePassword(password) && validateRepeatPassword(repeatPassword)) {
       setModalMessage("Signup successful!");
       setOpenModal(true);
-      setTimeout(() => setOpenModal(false), 2000);
+      setTimeout(() => {
+        setOpenModal(false)
+        navigate("/")
+      }, 2000);
       setEmail("")
       setPassword("")
-      navigate("/");
+
     }
   };
 
   return (
-        <div className="flex flex-col min-h-screen pb-32 pb-[1150px] md:pb-[610px] lg:pb-[500px]">
+    <div className="flex flex-col min-h-screen pb-32 pb-[1150px] md:pb-[610px] lg:pb-[500px]">
       <Navbar />
       <div className="flex justify-center items-center flex-1">
         <div className="bg-white shadow-xl rounded-xl px-8 py-10 w-full max-w-md">
