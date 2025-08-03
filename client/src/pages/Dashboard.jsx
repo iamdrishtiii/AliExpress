@@ -38,7 +38,7 @@ const Dashboard = () => {
   const wishCount = wishlistItems.reduce((total, item) => total + item.quantity, 0);
 
   return (
-    <div className="min-h-screen pb-24  pb-[1150px] md:pb-[610px] lg:pb-[500px]">
+    <div className="min-h-screen pb-24 pb-[1150px] md:pb-[610px] lg:pb-[500px]">
       {/* Header */}
       <header className="bg-white shadow sticky top-0 z-50 pt-4 pb-5">
         <div className="flex flex-wrap justify-between items-center px-6 py-4">
@@ -46,14 +46,14 @@ const Dashboard = () => {
           <input
             type="text"
             placeholder="Search for products..."
-            className="flex-1 mx-4 border rounded-full px-6 py-2 text-lg focus:outline-none shadow"
+            className="flex-1 mx-4 border rounded-full px-6 py-2 text-lg mb-4 mt-3 focus:outline-none shadow"
             value={searchProduct}
             onChange={(e) => {
               setSearchProduct(e.target.value);
               setCurrentPage(1);
             }}
           />
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 ml-12 md:ml-0">
             <Link to="/wishlist" className="relative">
               <CiHeart className="text-3xl" />
               {wishCount > 0 && (

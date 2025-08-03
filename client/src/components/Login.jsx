@@ -101,7 +101,7 @@ const Login = ({ setActive }) => {
 }
 
   return (
-     <div className="flex flex-col min-h-screen py-2 pb-32 pb-[1150px] md:pb-[610px] lg:pb-[500px]">
+     <div className="flex flex-col min-h-screen pb-32 pb-[1150px] md:pb-[610px] lg:pb-[500px]">
       <Navbar />
       <div className="flex flex-1 items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-xl shadow-xl">

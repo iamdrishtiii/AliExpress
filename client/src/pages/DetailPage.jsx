@@ -19,96 +19,105 @@ const DetailPage = () => {
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
   const wishCount = wishlistItems.reduce((total, item) => total + item.quantity, 0);
   return (
-    <div className="py-7 pb-[1150px] md:pb-[610px] lg:pb-[500px]">
-      <div className='flex flex-wrap gap-2 items-center px-2 sm:px-10 py-4'>
-        <Link to="/"><BiHomeAlt className='size-12 pr-4' /></Link>
-        <h1 className='text-3xl font-bold hidden md:block'> Detail page</h1>
-        <Link to='/wishlist' className='absolute right-44'>
-          <div className='bg-black text-white p-4 rounded-xl flex items-center gap-1'>
-            <CiHeart className='size-8' />
-            <span className='text-xs'>Wishlist</span>
+    <div className="py-7 pb-[1100px] md:pb-[600px] lg:pb-[500px]">
+      <header className="bg-white shadow sticky top-0 z-50 mb-10 py-4 ">
+        <div className="flex flex-wrap justify-between items-center px-6 py-4">
+          <Link to="/"><BiHomeAlt className='size-12 pr-4' /></Link>
+          <div className='font-bold text-2xl'>Detail Page</div>
+          <div className="flex items-center gap-4">
+            <Link to="/wishlist" className="relative">
+              <CiHeart className="text-3xl" />
+              {wishCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                  {wishCount}
+                </span>
+              )}
+            </Link>
+            <Link to="/cart" className="relative">
+              <CiShoppingCart className="text-3xl" />
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
+            <Link to="/auth">
+              <CgProfile className="text-3xl" />
+            </Link>
           </div>
-          {wishCount > 0 && (
-            <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-              {wishCount}
-            </span>
-          )}
-        </Link>
-        <Link to='/cart' className='absolute right-20'>
-          <div className='bg-black text-white p-4 rounded-xl flex items-center gap-1'>
-            <CiShoppingCart className='size-8' />
-            <span className='text-xs'>Cart</span>
-          </div>
-          {cartCount > 0 && (
-            <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-              {cartCount}
-            </span>
-          )}
-        </Link>
-        <Link to='/auth' className='absolute right-2'>
-          <div className='border-gray-200 border-2 p-4 rounded-xl'><CgProfile className='size-8' /></div>
-        </Link>
-      </div>
-      <div className='p-5'>
-        {productData.map((item) => {
-          return <div className='left text-md sm:text-lg lg:flex lg:flex-row'>
-            <div className='  font-bold lg:w-1/2 flex flex-col  '>
-              <img src={item.image} alt={item.title} className='w-11/12 item-center pt-10' /></div> <br />
-            <div className='lg:w-1/2'>
-              <p className='text-lg lg:text-2xl'>{item.title}</p> <br />
+        </div>
+      </header>
+      <div className="px-4 md:px-10 py-8">
+        {productData.map((item) => (
+          <div
+            key={item.id}
+            className="flex flex-col lg:flex-row gap-10 bg-white p-6 rounded-2xl shadow-md"
+          >
+            {/* Left - Image */}
+            <div className="lg:w-1/2 flex items-center justify-center">
+              <img
+                src={item.image}
+                alt={item.title}
+                className="w-full max-w-md object-contain rounded-xl"
+              />
+            </div>
 
-              <div className="flex flex-row max-sm:flex-col max-sm:gap-4 max-sm:justify-start justify-between mt-5">
-                <div className="flex flex-col max-sm:flex-row max-sm:gap-4 gap-2 items-center">
-                  <p className="text-[22px] max-sm:text-[18px] text-gray-500 font-semibold">
-                    Price
-                  </p>
-                  <p className="text-[18px]">Rs. {item.price} </p>
-                </div>
+            {/* Right - Details */}
+            <div className="lg:w-1/2">
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">{item.title}</h1>
 
-                <div className="flex flex-col max-sm:flex-row max-sm:gap-4  gap-2 items-center">
-                  <p className="text-[22px] max-sm:text-[18px] text-gray-500 font-semibold">
-                    Color
-                  </p>
-                  <p className="text-[18px]">{item.color}</p>
+              {/* Info Section */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6 text-gray-700 text-sm sm:text-base">
+                <div>
+                  <p className="font-semibold text-gray-500">Price</p>
+                  <p className="text-orange-600 font-semibold">Rs. {item.price}</p>
                 </div>
-                <div className="flex flex-col max-sm:flex-row max-sm:gap-4  gap-2 items-center">
-                  <p className="text-[22px] max-sm:text-[18px] text-gray-500 font-semibold">
-                    Brand
-                  </p>
-                  <p className="text-[18px]">{item.brand} </p>
+                <div>
+                  <p className="font-semibold text-gray-500">Color</p>
+                  <p>{item.color}</p>
                 </div>
-
-                <div className="flex flex-col max-sm:flex-row max-sm:gap-4  gap-2 items-center">
-                  <p className="text-[22px] max-sm:text-[18px] text-gray-500 font-semibold  mb-4 sm:mb-0">
-                    Model
-                  </p>
-                  <p className="text-[18px]">{item.model}</p>
+                <div>
+                  <p className="font-semibold text-gray-500">Brand</p>
+                  <p>{item.brand}</p>
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-500">Model</p>
+                  <p>{item.model}</p>
                 </div>
               </div>
 
-              <br />
-              <br />
-              <h2 className="text-[22px] max-sm:text-[18px] text-gray-500 font-semibold">Discription</h2>
-              <p className='text-[15px]'>{item.description}</p><br />  <br />
+              {/* Description */}
+              <div className="mb-6">
+                <h2 className="text-lg font-semibold text-gray-600 mb-2">Description</h2>
+                <p className="text-gray-700 text-sm leading-relaxed">{item.description}</p>
+              </div>
 
-              <div className="sm:flex sm:flex-row gap-4 justify-center text-sm">
+              {/* Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4">
                 <button
+                  className="flex-1 border border-orange-500 text-orange-500 py-2 px-4 rounded-lg hover:bg-orange-50  flex items-center justify-center gap-2"
                   onClick={() => dispatch(addToCart(item))}
-                  className="border-orange-400 border-2 px-4 sm:px-12 py-2  text-orange m-2 flex flex-row gap-2">
-                  <CiShoppingCart className="size-6" />Add to Cart</button>
+                >
+                  <CiShoppingCart className="text-lg" />
+                  Add to Cart
+                </button>
+
                 <button
+                  className="flex-1 border border-pink-500 text-pink-500 py-2 px-4 rounded-lg hover:bg-pink-50  flex items-center justify-center gap-2"
                   onClick={() => {
                     const exists = wishlistItems.some((product) => product.id === item.id);
-                    if (!exists) {
-                      dispatch(addToWishlist(item));
-                    }
+                    if (!exists) dispatch(addToWishlist(item));
                   }}
-                  className="px-4 py-2  m-2 flex flex-row text-orange gap-2"> <CiHeart className='size-6' /> Add to Wishlist </button>
+                >
+                  <CiHeart className="text-lg" />
+                  Add to Wishlist
+                </button>
               </div>
             </div>
           </div>
+        ))}
+      </div>
 
-        })}</div>
     </div>
   )
 }
