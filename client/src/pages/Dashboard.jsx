@@ -56,18 +56,18 @@ const Dashboard = () => {
   const wishCount = wishlistItems.reduce((total, item) => total + item.quantity, 0);
 
   return (
-    <div className="min-h-screen pb-24 pb-[1150px] md:pb-[610px] lg:pb-[500px]">
+    <div className="min-h-screen  bg-slate-100 pb-24 pb-[1150px] md:pb-[610px] lg:pb-[500px]">
       {/* Header */}
-      <header className="bg-slate-100 shadow sticky top-0 z-50 py-2">
-        <div className="flex flex-wrap justify-between items-center px-6">
-          <img src="../Logo.webp" alt="Logo" className="w-48 pl-12" />
+      <header className="bg-white shadow-lg sticky top-0 z-50 py-2 mb-4 sm:px-20">
+        <div className="flex flex-wrap justify-between items-center px-2 sm:px-6">
+          <img src="../Logo.webp" alt="Logo" className="w-36 h-16 sm:h-20 sm:w-48 sm:pl-12" />
 
-          <div className="flex flex-col sm:flex-row gap-2 flex-1 mx-4 mb-4 mt-3">
+          <div className="flex flex-col sm:flex-row gap-2 flex-1 sm:ml-8 mb-2 sm:mb-4 sm:mt-3">
             <div className="flex flex-row rounded-full text-lg shadow flex-1 bg-white">
               <input
                 type="text"
                 placeholder="Search for products..."
-                className="flex-1 px-4 py-2 text-lg rounded-full bg-white"
+                className="flex-1 pl-1 sm:px-4 py-2 text-lg rounded-full bg-white"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
               />
@@ -76,7 +76,7 @@ const Dashboard = () => {
                   setSearchProduct(inputValue);
                   setCurrentPage(1);
                 }}
-                className="hover:bg-gray-100 rounded-full px-5 transition"
+                className="hover:bg-gray-100 rounded-full pr-3 sm:px-5 transition"
               >
                 <FaSearch className="text-xl" />
               </button>
@@ -85,10 +85,10 @@ const Dashboard = () => {
 
 
 
-          <div className="flex items-center gap-4 ml-12 md:ml-0">
+          <div className="flex justify-end gap-3 sm:ml-12 lg:ml-8">
             {/* Wishlist Icon */}
             <Link to="/wishlist" className="relative">
-              <CiHeart className="text-3xl" />
+              <CiHeart className="text-3xl " />
               {wishCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
                   {wishCount}
@@ -107,17 +107,18 @@ const Dashboard = () => {
             </Link>
 
             {/* Authentication Profile Icon */}
-            <Link to="/auth">
+            <Link to="/auth" className='pl-2'>
               <CgProfile className="text-3xl" />
             </Link>
           </div>
         </div>
       </header>
-      <div className='flex flex-wrap'>
+      <div className=' sm:px-20'>
+      <div className='flex flex-wrap '>
         {/* Category Filter */}
         <div className="px-6 py-4 relative">
           <button
-            className="flex items-center gap-2 text-lg font-semibold"
+            className="flex items-center gap-2 text-lg  text-gray-600 font-semibold"
             onClick={() => setShowDropdown(!showDropdown)}
           >
             <FaBars /> Categories
@@ -159,29 +160,27 @@ const Dashboard = () => {
               setSortOrder(e.target.value);
               setCurrentPage(1);
             }}
-            className="border rounded px-4 py-2"
+            className="border rounded px-2 py-1 text-sm"
           >
             <option value="default">Sort by Price</option>
-            <option value="lowToHigh">Price: Low to High</option>
-            <option value="highToLow">Price: High to Low</option>
+            <option value="lowToHigh">Low to High</option>
+            <option value="highToLow">High to Low</option>
           </select>
         </div>
 
       </div>
-
-
       {loading ? (
         <div className="flex justify-center items-center h-96">
           <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-orange-500"></div>
         </div>
       ) : (
-        <div className="px-6 mt-4">
+        <div className="px-6 mt-4 ">
           {/* Product Grid */}
-          <h2 className="text-xl font-semibold mb-4 capitalize">{selectedCategory} Products</h2>
+          <h2 className="text-xl font-semibold mb-4 capitalize text-gray-600">{selectedCategory} Products</h2>
           {/* Best Deals Section */}
           {filteredProducts.some(item => item.discount) && (
-            <div className="px-6 mt-6 pb-8">
-              <h2 className="text-2xl font-semibold mb-4 text-orange-600">Best Deals</h2>
+            <div className="px-6 mt-6 mb-8 bg-white">
+              <h2 className="text-2xl font-semibold py-4 text-orange-600">Best Deals</h2>
               <div className="overflow-x-auto flex gap-6 pb-4">
                 {filteredProducts.slice(0,10)
                   .filter((item) => item.discount)
@@ -251,7 +250,7 @@ const Dashboard = () => {
 
 
                     <button
-                      className="flex-1 bg-orange-500 text-white py-2 px-4 rounded-lg hover:bg-orange-400 flex items-center justify-center gap-2"
+                      className="flex-1 bg-orange-400 text-white py-2 px-4 rounded-lg hover:bg-orange-400 flex items-center justify-center gap-2"
                       onClick={() => {
                         const itemWithQuantity = { ...item, quantity: quantity[item.id] || 1 };
                         dispatch(addToCart(itemWithQuantity));
@@ -295,7 +294,6 @@ const Dashboard = () => {
           )}
         </div>
       )}
-
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="mt-8 flex justify-center items-center gap-4">
@@ -316,6 +314,7 @@ const Dashboard = () => {
           </button>
         </div>
       )}
+    </div>
     </div>
   );
 };

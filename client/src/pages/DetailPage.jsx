@@ -23,10 +23,10 @@ const DetailPage = () => {
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
   const wishCount = wishlistItems.reduce((total, item) => total + item.quantity, 0);
   return (
-    <div className="pb-[1100px] md:pb-[600px] lg:pb-[500px]">
+    <div className="pb-[1100px] md:pb-[600px] lg:pb-[500px] bg-slate-100">
 
       {/* Header Section */}
-      <header className="bg-slate-100 shadow sticky top-0 z-50 mb-10 py-6">
+      <header className="bg-white shadow-lg sticky top-0 z-50 py-6 mb-4 sm:px-20">
         <div className="flex flex-wrap justify-between items-center px-6">
           <Link to="/"><BiHomeAlt className='size-12 pr-4' /></Link>
           <div className='font-bold text-2xl'>Detail Page</div>

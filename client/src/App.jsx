@@ -9,7 +9,7 @@ import DetailPage from './pages/DetailPage'
 
 const App = () => {
   return (
-    <div className='relative min-h-[100vh] max-w-[screen] sm:mx-20 ' >
+    <div className='relative min-h-[100vh] max-w-[screen]' >
 
       <BrowserRouter>
         <Routes>

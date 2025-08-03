@@ -14,7 +14,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <header className="bg-slate-100 shadow sticky top-0 z-50 mb-10 ">
+      <header className="bg-white shadow-lg sticky top-0 z-50 py-2 mb-4 sm:px-20 ">
         <div className="flex flex-wrap justify-between items-center px-6 py-1">
           <Link to="/"><BiHomeAlt className='size-12 pr-4' /></Link>
           <Link to="/"> <img src="../Logo.webp" alt="Logo" className="w-36" /></Link>

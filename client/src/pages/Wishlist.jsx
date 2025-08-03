@@ -13,7 +13,7 @@ const Wishlist = () => {
   const wishCount = wishlistItems.reduce((total, item) => total + item.quantity, 0);
 
   return (
-    <div className="min-h-screen pb-[1150px] md:pb-[610px] lg:pb-[500px]">
+    <div className="min-h-screen pb-[1150px] md:pb-[610px] lg:pb-[500px] bg-slate-100">
       <Navbar />
 
       <div className="px-4 md:px-8 py-8 max-w-6xl mx-auto">

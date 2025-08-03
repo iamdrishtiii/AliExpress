@@ -131,7 +131,7 @@ const Signup = ({ setActive }) => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen pb-32 pb-[1150px] md:pb-[610px] lg:pb-[500px]">
+    <div className="flex flex-col min-h-screen pb-32 pb-[1150px] md:pb-[610px] lg:pb-[500px] bg-slate-100">
       <Navbar />
       <div className="flex justify-center items-center flex-1">
         <div className="bg-white shadow-xl rounded-xl px-8 py-10 w-full max-w-md">

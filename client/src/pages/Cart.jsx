@@ -21,7 +21,7 @@ const Cart = () => {
   const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
   return (
-    <div className="min-h-screen pb-[1150px] md:pb-[610px] lg:pb-[500px]">
+    <div className="min-h-screen pb-[1150px] md:pb-[610px] lg:pb-[500px] bg-slate-100">
       <Navbar />
       <div className="px-4 md:px-8 py-8 max-w-6xl mx-auto">
         <h2 className="text-3xl font-bold mb-6 text-gray-800">Shopping Cart</h2>
