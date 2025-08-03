@@ -7,6 +7,7 @@ import { MdKeyboardArrowRight } from 'react-icons/md';
 import { CgProfile } from 'react-icons/cg';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
+import { FaLongArrowAltDown } from 'react-icons/fa';
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(true);
@@ -57,12 +58,12 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen pb-24 pb-[1150px] md:pb-[610px] lg:pb-[500px]">
       {/* Header */}
-      <header className="bg-white shadow sticky top-0 z-50 py-2">
-        <div className="flex flex-wrap justify-between items-center px-6 py-4">
-          <img src="../Logo.webp" alt="Logo" className="w-36 pl-12" />
+      <header className="bg-slate-100 shadow sticky top-0 z-50 py-2">
+        <div className="flex flex-wrap justify-between items-center px-6">
+          <img src="../Logo.webp" alt="Logo" className="w-48 pl-12" />
 
           <div className="flex flex-col sm:flex-row gap-2 flex-1 mx-4 mb-4 mt-3">
-            <div className="flex flex-row rounded-full gap-2 text-lg shadow flex-1 bg-white">
+            <div className="flex flex-row rounded-full text-lg shadow flex-1 bg-white">
               <input
                 type="text"
                 placeholder="Search for products..."
@@ -75,7 +76,7 @@ const Dashboard = () => {
                   setSearchProduct(inputValue);
                   setCurrentPage(1);
                 }}
-                className="text-white bg-black hover:bg-gray-700 rounded-full px-5 transition"
+                className="hover:bg-gray-100 rounded-full px-5 transition"
               >
                 <FaSearch className="text-xl" />
               </button>
@@ -179,10 +180,10 @@ const Dashboard = () => {
           <h2 className="text-xl font-semibold mb-4 capitalize">{selectedCategory} Products</h2>
           {/* Best Deals Section */}
           {filteredProducts.some(item => item.discount) && (
-            <div className="px-6 mt-6">
+            <div className="px-6 mt-6 pb-8">
               <h2 className="text-2xl font-semibold mb-4 text-orange-600">Best Deals</h2>
               <div className="overflow-x-auto flex gap-6 pb-4">
-                {filteredProducts
+                {filteredProducts.slice(0,10)
                   .filter((item) => item.discount)
                   .map((item) => {
                     const discountedPrice = Math.round(item.price - (item.price * item.discount / 100));
@@ -197,8 +198,9 @@ const Dashboard = () => {
                         </Link>
                         <div className="text-sm">
                           <p className="text-gray-500 line-through">₹{item.price}</p>
-                          <p className="text-orange-500 font-bold">₹{discountedPrice}</p>
-                          <p className="text-green-600 font-semibold">{item.discount}% OFF</p>
+                          <p className="text-green-600 font-semibold flex flex-wrap"><FaLongArrowAltDown className='h-5'/>{item.discount}% OFF</p>
+                          <p className="text-black font-bold">  ₹{discountedPrice}</p>
+                          
                         </div>
                       </div>
                     );
@@ -209,7 +211,9 @@ const Dashboard = () => {
 
           {currentProducts.length ? (
             <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-              {currentProducts.map((item) => (
+              {currentProducts.map((item) =>{
+              const discountedPrice = Math.round(item.price - (item.price * item.discount / 100));
+              return(
                 <div key={item.id} className="bg-white rounded-lg shadow hover:shadow-md hover:scale-105 p-2 flex flex-col justify-between">
                   <Link to={`/${item.id}/${item.color}/${item.price}/${item.brand}`}>
                     <img src={item.image} alt={item.title} className="w-40 h-44 mb-2" />
@@ -284,7 +288,7 @@ const Dashboard = () => {
                   </div>
 
                 </div>
-              ))}
+              )})}
             </div>
           ) : (
             <p className="text-center text-red-500 text-lg">No products found.</p>

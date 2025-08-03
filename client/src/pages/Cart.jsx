@@ -8,6 +8,7 @@ import {
   removeFromCart,
 } from '../action';
 import Navbar from '../components/Navbar';
+import { FaLongArrowAltDown } from 'react-icons/fa';
 
 const Cart = () => {
   const [shipping, setShipping] = useState(0);
@@ -31,43 +32,49 @@ const Cart = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Cart Items Grid */}
             <div className="lg:col-span-2 space-y-6">
-              {cartItems.map((item) => (
-                <div
-                  key={item.id}
-                  className="bg-white p-5 rounded-2xl shadow-md hover:shadow-lg transition-all flex flex-col sm:flex-row gap-6"
-                >
-                  <img src={item.image} alt={item.title} className="w-24 h-24 object-contain rounded-lg" />
-                  <div className="flex-1">
-                    <h3 className="text-md font-semibold text-gray-800 line-clamp-2">{item.title}</h3>
-                    <div className="flex items-center gap-4 mt-2">
-                      <button
-                        onClick={() => dispatch(decreaseQuantity(item.id))}
-                        className="px-3 py-1 border rounded font-bold text-lg hover:bg-gray-100"
-                      >
-                        -
-                      </button>
-                      <span className="text-sm font-medium">{item.quantity}</span>
-                      <button
-                        onClick={() => dispatch(increaseQuantity(item.id))}
-                        className="px-3 py-1 border rounded font-bold text-lg hover:bg-gray-100"
-                      >
-                        +
-                      </button>
-                    </div>
-                    <p className="mt-2 text-sm text-gray-700">Price: Rs. {item.price}</p>
-                    <p className="font-semibold text-orange-600 mt-1">
-                      Total: Rs. {item.price * item.quantity}
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => dispatch(removeFromCart(item.id))}
-                    className="bg-red-100 w-fit h-fit text-red-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-red-200 transition"
+              {cartItems.map((item) => {
+                const discountedPrice = Math.round(item.price - (item.price * item.discount / 100));
+                return (
+                  <div
+                    key={item.id}
+                    className="bg-white p-5 rounded-2xl shadow-md hover:shadow-lg transition-all flex flex-col sm:flex-row gap-6"
                   >
-                    <CiHeart className="size-5" />
-                    Remove
-                  </button>
-                </div>
-              ))}
+                    <img src={item.image} alt={item.title} className="w-24 h-24 object-contain rounded-lg" />
+                    <div className="flex-1">
+                      <h3 className="text-md font-semibold text-gray-800 line-clamp-2">{item.title}</h3>
+                      <div className="flex items-center gap-4 mt-2">
+                        <button
+                          onClick={() => dispatch(decreaseQuantity(item.id))}
+                          className="px-3 py-1 border rounded font-bold text-lg hover:bg-gray-100"
+                        >
+                          -
+                        </button>
+                        <span className="text-sm font-medium">{item.quantity}</span>
+                        <button
+                          onClick={() => dispatch(increaseQuantity(item.id))}
+                          className="px-3 py-1 border rounded font-bold text-lg hover:bg-gray-100"
+                        >
+                          +
+                        </button>
+                      </div>
+                      <p className="mt-2 text-sm text-gray-700 line-through">Price: Rs. {item.price}</p>
+                      <p className="text-green-600 font-semibold flex flex-wrap gap-1"><FaLongArrowAltDown className='h-5' />{item.discount}% OFF 
+                      <p className="text-sm text-gray-700 pl-2"> Rs. {discountedPrice}</p></p>
+
+                      <p className="font-semibold text-orange-600 mt-1">
+                        Total: Rs. {discountedPrice * item.quantity}
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => dispatch(removeFromCart(item.id))}
+                      className="bg-red-100 w-fit h-fit text-red-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-red-200 transition"
+                    >
+                      <CiHeart className="size-5" />
+                      Remove
+                    </button>
+                  </div>
+                )
+              })}
             </div>
 
             {/* Cart Total */}
