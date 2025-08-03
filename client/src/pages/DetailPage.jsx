@@ -91,12 +91,6 @@ const DetailPage = () => {
                 </div>
               </div>
 
-              {/* Description */}
-              <div className="mb-6">
-                <h2 className="text-lg font-semibold text-gray-600 mb-2">Description</h2>
-                <p className="text-gray-700 text-sm leading-relaxed">{item.description}</p>
-              </div>
-
               {/* Quantity Selector */}
               <div className="flex items-center gap-4 mb-4">
                 <button
@@ -206,6 +200,16 @@ const DetailPage = () => {
                   Add to Wishlist
                 </button>
               </div>
+              <p className='h-24'></p>
+
+
+               {/* Description */}
+              <div className="mb-6">
+                <h2 className="text-lg font-semibold text-gray-600 mb-2">Description</h2>
+                <p className="text-gray-700 text-sm leading-relaxed">{item.description}</p>
+              </div>
+
+
             </div>
           </div>
         ))}

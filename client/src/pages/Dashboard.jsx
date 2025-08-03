@@ -177,6 +177,36 @@ const Dashboard = () => {
         <div className="px-6 mt-4">
           {/* Product Grid */}
           <h2 className="text-xl font-semibold mb-4 capitalize">{selectedCategory} Products</h2>
+          {/* Best Deals Section */}
+          {filteredProducts.some(item => item.discount) && (
+            <div className="px-6 mt-6">
+              <h2 className="text-2xl font-semibold mb-4 text-orange-600">Best Deals</h2>
+              <div className="overflow-x-auto flex gap-6 pb-4">
+                {filteredProducts
+                  .filter((item) => item.discount)
+                  .map((item) => {
+                    const discountedPrice = Math.round(item.price - (item.price * item.discount / 100));
+                    return (
+                      <div
+                        key={item.id}
+                        className="min-w-[200px] bg-white border hover:scale-90 rounded-lg p-4 shadow hover:shadow-md "
+                      >
+                        <Link to={`/${item.id}/${item.color}/${item.price}/${item.brand}`}>
+                          <img src={item.image} alt={item.title} className="h-36 w-full object-contain mb-2" />
+                          <h3 className="font-semibold text-base mb-1 line-clamp-2">{item.title}</h3>
+                        </Link>
+                        <div className="text-sm">
+                          <p className="text-gray-500 line-through">₹{item.price}</p>
+                          <p className="text-orange-500 font-bold">₹{discountedPrice}</p>
+                          <p className="text-green-600 font-semibold">{item.discount}% OFF</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+          )}
+
           {currentProducts.length ? (
             <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {currentProducts.map((item) => (
