@@ -62,8 +62,8 @@ const Dashboard = () => {
         <div className="flex flex-wrap justify-between items-center px-2 sm:px-6">
           <img src="../Logo.webp" alt="Logo" className="w-36 h-16 sm:h-20 sm:w-48 sm:pl-12" />
 
-          <div className="flex flex-col sm:flex-row gap-2 flex-1 sm:ml-8 mb-2 sm:mb-4 sm:mt-3">
-            <div className="flex flex-row rounded-full text-lg shadow flex-1 bg-white">
+          <div className="flex flex-col sm:flex-row rounded-full border border-gray-50 gap-2 shadow flex-1 sm:ml-8 mb-4 sm:mt-3">
+            <div className="flex flex-row text-lg flex-1 bg-white">
               <input
                 type="text"
                 placeholder="Search for products..."
@@ -85,7 +85,7 @@ const Dashboard = () => {
 
 
 
-          <div className="flex justify-end gap-3 sm:ml-12 lg:ml-8">
+          <div className="flex justify-end gap-3 mx-3 sm:ml-12 lg:ml-8">
             {/* Wishlist Icon */}
             <Link to="/wishlist" className="relative">
               <CiHeart className="text-3xl " />
