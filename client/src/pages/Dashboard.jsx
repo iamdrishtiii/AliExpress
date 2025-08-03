@@ -218,6 +218,7 @@ const Dashboard = () => {
                   <Link to={`/${item.id}/${item.color}/${item.price}/${item.brand}`}>
                     <img src={item.image} alt={item.title} className="w-40 h-44 mb-2" />
                     <h3 className="font-semibold text-lg mb-1 line-clamp-2">{item.title}</h3>
+                    <p className="text-sm text-gray-800 ">Color : {item.color}</p>
                     <p className="font-bold text-orange-500">₹{item.price}</p>
                   </Link>
                   <div className="mt-4 flex flex-col gap-2">

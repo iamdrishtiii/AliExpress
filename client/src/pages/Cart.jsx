@@ -63,9 +63,11 @@ const Cart = () => {
                           +
                         </button>
                       </div>
-                      <p className="mt-2 text-sm text-gray-700 line-through">Price: Rs. {item.price}</p>
+                      <p className="mt-2 text-sm text-gray-800 pl-1">Color : {item.color}</p>
+                      <p className=" text-sm text-gray-800 pl-1">Dispatch within <span className='text-gray-900'>2 days</span> </p>
+                      <p className="text-sm text-gray-700 line-through pl-2 mt-1">Price: Rs. {item.price}</p>
                       <p className="text-green-600 font-semibold flex flex-wrap gap-1"><FaLongArrowAltDown className='h-5' />{item.discount || 0}% OFF
-                        <p className="text-sm text-gray-700 pl-2"> Rs. {discountedPrice}</p></p>
+                      <p className="text-sm text-gray-700 pl-2"> Rs. {discountedPrice}</p></p>
 
                       <p className="font-semibold text-orange-600 mt-1">
                         Total: Rs. {discountedPrice * item.quantity}

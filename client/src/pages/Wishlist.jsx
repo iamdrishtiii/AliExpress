@@ -44,7 +44,8 @@ const Wishlist = () => {
                   className="w-44 h-48 mb-4 rounded-lg "
                 />
                 <h3 className="text-md font-semibold text-gray-800 line-clamp-3 mb-1">{item.title}</h3>
-                <p className="font-semibold text-orange-600 mb-4 line-through">Rs. {item.price}</p>
+                <p className="mt-2 text-sm text-gray-800 pl-1">Color : {item.color}</p>
+                <p className="font-semibold text-orange-600 line-through pl-2">Rs. {item.price}</p>
                 <p className="text-green-600 font-semibold flex flex-wrap gap-1"><FaLongArrowAltDown className='h-5' />{item.discount || 0}% OFF
                 <p className="text-sm text-gray-700 pl-2 pb-6"> Rs. {discountedPrice}</p></p>
 
