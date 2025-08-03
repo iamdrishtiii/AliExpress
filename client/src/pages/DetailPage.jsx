@@ -26,7 +26,7 @@ const DetailPage = () => {
     <div className="pb-[1100px] md:pb-[600px] lg:pb-[500px] bg-slate-100">
 
       {/* Header Section */}
-      <header className="bg-white shadow-lg sticky top-0 z-50 py-6 mb-4 sm:px-20">
+      <header className="bg-white shadow-lg sticky top-0 z-50 py-7 mb-4 sm:px-20">
         <div className="flex flex-wrap justify-between items-center px-6">
           <Link to="/"><BiHomeAlt className='size-12 pr-4' /></Link>
           <div className='font-bold text-2xl'>Detail Page</div>

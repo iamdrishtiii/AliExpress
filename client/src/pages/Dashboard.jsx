@@ -58,7 +58,7 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen  bg-slate-100 pb-24 pb-[1150px] md:pb-[610px] lg:pb-[500px]">
       {/* Header */}
-      <header className="bg-white shadow-lg sticky top-0 z-50 py-2 mb-4 sm:px-20">
+      <header className="bg-white shadow-lg sticky top-0 z-50 py-4 mb-4 sm:px-20">
         <div className="flex flex-wrap justify-between items-center px-2 sm:px-6">
           <img src="../Logo.webp" alt="Logo" className="w-36 h-16 sm:h-20 sm:w-48 sm:pl-12" />
 
