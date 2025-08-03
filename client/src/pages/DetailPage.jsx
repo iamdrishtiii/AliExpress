@@ -5,6 +5,7 @@ import { Link, useParams } from 'react-router-dom'
 import { addToCart, addToWishlist } from '../action'
 import { CgProfile } from 'react-icons/cg'
 import { BiHomeAlt } from 'react-icons/bi'
+import { FaMoneyCheckAlt, FaUndoAlt, FaTruck, FaShippingFast, FaAward } from 'react-icons/fa';
 
 const DetailPage = () => {
   const products = useSelector((state) => state.products.products)
@@ -56,7 +57,7 @@ const DetailPage = () => {
             className="flex flex-col lg:flex-row gap-10 bg-white p-6 rounded-2xl shadow-md"
           >
             {/* Image of Selected Item */}
-            <div className="lg:w-1/2 flex items-center justify-center">
+            <div className="lg:w-5/12 flex items-center justify-center">
               <img
                 src={item.image}
                 alt={item.title}
@@ -65,7 +66,7 @@ const DetailPage = () => {
             </div>
 
             {/*  Details of Selected Item */}
-            <div className="lg:w-1/2">
+            <div className="lg:w-7/12">
               <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">{item.title}</h1>
 
               {/* Info Section */}
@@ -93,6 +94,49 @@ const DetailPage = () => {
                 <h2 className="text-lg font-semibold text-gray-600 mb-2">Description</h2>
                 <p className="text-gray-700 text-sm leading-relaxed">{item.description}</p>
               </div>
+
+              <div className="flex flex-wrap justify-center items-center gap-4 py-6 bg-white">
+                {/* Item 1 */}
+                <div className="flex flex-col items-center text-center w-16">
+                  <div className="bg-gray-100 rounded-full p-3">
+                    <FaMoneyCheckAlt className="text-orange-400 text-2xl" />
+                  </div>
+                  <p className="text-sm text-blue-800 font-medium mt-2">Cash/Pay on Delivery</p>
+                </div>
+
+                {/* Item 2 */}
+                <div className="flex flex-col items-center text-center w-16">
+                  <div className="bg-gray-100 rounded-full p-3">
+                    <FaUndoAlt className="text-orange-400 text-2xl" />
+                  </div>
+                  <p className="text-sm text-blue-800 font-medium mt-2">10 days Returnable</p>
+                </div>
+
+                {/* Item 3 */}
+                <div className="flex flex-col items-center text-center w-16">
+                  <div className="bg-gray-100 rounded-full p-3">
+                    <FaTruck className="text-orange-400 text-2xl" />
+                  </div>
+                  <p className="text-sm text-blue-800 font-medium mt-2">Amazon Delivered</p>
+                </div>
+
+                {/* Item 4 */}
+                <div className="flex flex-col items-center text-center w-16">
+                  <div className="bg-gray-100 rounded-full p-3">
+                    <FaShippingFast className="text-orange-400 text-2xl" />
+                  </div>
+                  <p className="text-sm text-blue-800 font-medium mt-2">Free Delivery</p>
+                </div>
+
+                {/* Item 5 */}
+                <div className="flex flex-col items-center text-center w-16">
+                  <div className="bg-gray-100 rounded-full p-3">
+                    <FaAward className="text-orange-400 text-2xl" />
+                  </div>
+                  <p className="text-sm text-blue-800 font-medium mt-2">Top Brand</p>
+                </div>
+              </div>
+
 
               {/* Buttons */}
               <div className="flex flex-col sm:flex-row gap-4">

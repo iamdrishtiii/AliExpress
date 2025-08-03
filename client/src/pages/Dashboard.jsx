@@ -6,13 +6,16 @@ import { FaBars } from 'react-icons/fa';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 import { CgProfile } from 'react-icons/cg';
 import { Link } from 'react-router-dom';
+import { FaSearch } from 'react-icons/fa';
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [searchProduct, setSearchProduct] = useState('');
+  const [inputValue, setInputValue] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [sortOrder, setSortOrder] = useState('default');
   const productsPerPage = 12;
 
   const dispatch = useDispatch();
@@ -27,14 +30,19 @@ const Dashboard = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (products || [].length > 0 && categories||[].length > 0) {
+    if ((products || []).length > 0 && (categories || []).length > 0) {
       setLoading(false);
     }
-  }, [products, categories])
+  }, [products, categories]);
 
   const filteredProducts = (products || [])
     .filter((item) => selectedCategory === 'all' || item.category === selectedCategory)
-    .filter((item) => item.title.toLowerCase().includes(searchProduct.toLowerCase()));
+    .filter((item) => item.title.toLowerCase().includes(searchProduct.toLowerCase()))
+    .sort((a, b) => {
+      if (sortOrder === 'lowToHigh') return a.price - b.price;
+      if (sortOrder === 'highToLow') return b.price - a.price;
+      return 0;
+    });
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -47,24 +55,34 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen pb-24 pb-[1150px] md:pb-[610px] lg:pb-[500px]">
       {/* Header */}
-      <header className="bg-white shadow sticky top-0 z-50 pt-4 pb-5">
+      <header className="bg-white shadow sticky top-0 z-50 py-2">
         <div className="flex flex-wrap justify-between items-center px-6 py-4">
           <img src="../Logo.webp" alt="Logo" className="w-36 pl-12" />
 
-          {/* Search Bar */}
-          <input
-            type="text"
-            placeholder="Search for products..."
-            className="flex-1 mx-4 border rounded-full px-6 py-2 text-lg mb-4 mt-3 focus:outline-none shadow"
-            value={searchProduct}
-            onChange={(e) => {
-              setSearchProduct(e.target.value);
-              setCurrentPage(1);
-            }}
-          />
+          <div className="flex flex-col sm:flex-row gap-2 flex-1 mx-4 mb-4 mt-3">
+            <div className="flex flex-row rounded-full gap-2 text-lg shadow flex-1 bg-white">
+              <input
+                type="text"
+                placeholder="Search for products..."
+                className="flex-1 px-4 py-2 text-lg rounded-full bg-white"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+              />
+              <button
+                onClick={() => {
+                  setSearchProduct(inputValue);
+                  setCurrentPage(1);
+                }}
+                className="text-orange-500 hover:text-orange-600 pl-1 pr-3 transition"
+              >
+                <FaSearch className="text-xl" />
+              </button>
+            </div>
+          </div>
+
+
 
           <div className="flex items-center gap-4 ml-12 md:ml-0">
-
             {/* Wishlist Icon */}
             <Link to="/wishlist" className="relative">
               <CiHeart className="text-3xl" />
@@ -85,66 +103,85 @@ const Dashboard = () => {
               )}
             </Link>
 
-            {/* Authentication Profile Icon*/}
+            {/* Authentication Profile Icon */}
             <Link to="/auth">
               <CgProfile className="text-3xl" />
             </Link>
           </div>
         </div>
       </header>
-
-      {/* Category Filter */}
-      <div className="px-6 py-4 relative">
-        <button
-          className="flex items-center gap-2 text-lg font-semibold"
-          onClick={() => setShowDropdown(!showDropdown)}
-        >
-          <FaBars /> Categories
-        </button>
-        {showDropdown && (
-          <div className="absolute mt-2 bg-white border rounded shadow-md w-48 z-10">
-            <div
-              className={`px-4 py-2 cursor-pointer hover:bg-gray-200 ${selectedCategory === 'all' ? 'bg-gray-100 font-semibold' : ''}`}
-              onClick={() => {
-                setSelectedCategory('all');
-                setShowDropdown(false);
-                setCurrentPage(1);
-              }}
-            >
-              All
-            </div>
-            {categories.map((cat) => (
+      <div className='flex flex-wrap'>
+        {/* Category Filter */}
+        <div className="px-6 py-4 relative">
+          <button
+            className="flex items-center gap-2 text-lg font-semibold"
+            onClick={() => setShowDropdown(!showDropdown)}
+          >
+            <FaBars /> Categories
+          </button>
+          {showDropdown && (
+            <div className="absolute mt-2 bg-white border rounded shadow-md w-48 z-10">
               <div
-                key={cat}
-                className={`px-4 py-2 cursor-pointer capitalize hover:bg-gray-200 ${selectedCategory === cat ? 'bg-gray-100 font-semibold' : ''}`}
+                className={`px-4 py-2 cursor-pointer hover:bg-gray-200 ${selectedCategory === 'all' ? 'bg-gray-100 font-semibold' : ''}`}
                 onClick={() => {
-                  setSelectedCategory(cat);
+                  setSelectedCategory('all');
                   setShowDropdown(false);
                   setCurrentPage(1);
                 }}
               >
-                {cat}
+                All
               </div>
-            ))}
-          </div>
-        )}
+              {categories.map((cat) => (
+                <div
+                  key={cat}
+                  className={`px-4 py-2 cursor-pointer capitalize hover:bg-gray-200 ${selectedCategory === cat ? 'bg-gray-100 font-semibold' : ''}`}
+                  onClick={() => {
+                    setSelectedCategory(cat);
+                    setShowDropdown(false);
+                    setCurrentPage(1);
+                  }}
+                >
+                  {cat}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Sort Dropdown */}
+        <div className="px-6 my-4">
+          <select
+            value={sortOrder}
+            onChange={(e) => {
+              setSortOrder(e.target.value);
+              setCurrentPage(1);
+            }}
+            className="border rounded px-4 py-2"
+          >
+            <option value="default">Sort by Price</option>
+            <option value="lowToHigh">Price: Low to High</option>
+            <option value="highToLow">Price: High to Low</option>
+          </select>
+        </div>
+
       </div>
+
 
       {loading ? (
         <div className="flex justify-center items-center h-96">
           <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-orange-500"></div>
         </div>
       ) : (
-        < div className="px-6 mt-4">
+        <div className="px-6 mt-4">
           {/* Product Grid */}
           <h2 className="text-xl font-semibold mb-4 capitalize">{selectedCategory} Products</h2>
           {currentProducts.length ? (
             <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {currentProducts.map((item) => (
-                <div key={item.id} className="bg-white rounded-lg shadow hover:shadow-md hover:bg-gray-100 p-4 flex flex-col justify-between">
+                <div key={item.id} className="bg-white rounded-lg shadow hover:shadow-md hover:scale-105 p-2 flex flex-col justify-between">
                   <Link to={`/${item.id}/${item.color}/${item.price}/${item.brand}`}>
-                    <img src={item.image} alt={item.title} className="w-44 h-48  mb-2" />
-                    <h3 className="font-semibold text-base mb-1 line-clamp-3">{item.title}</h3>
+                    <img src={item.image} alt={item.title} className="w-40 h-44 mb-2" />
+                    <h3 className="font-semibold text-lg mb-1 line-clamp-2">{item.title}</h3>
                     <p className="font-bold text-orange-500">₹{item.price}</p>
                   </Link>
                   <div className="mt-4 flex flex-col gap-2">
@@ -177,8 +214,6 @@ const Dashboard = () => {
         </div>
       )}
 
-
-
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="mt-8 flex justify-center items-center gap-4">
@@ -198,11 +233,8 @@ const Dashboard = () => {
             <MdKeyboardArrowRight />
           </button>
         </div>
-      )
-      }
-
-    </div >
-
+      )}
+    </div>
   );
 };
 
