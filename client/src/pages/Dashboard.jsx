@@ -5,7 +5,7 @@ import { CiHeart, CiShoppingCart } from 'react-icons/ci';
 import { FaBars } from 'react-icons/fa';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 import { CgProfile } from 'react-icons/cg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 
 const Dashboard = () => {
@@ -13,12 +13,14 @@ const Dashboard = () => {
   const [searchProduct, setSearchProduct] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [quantity, setQuantity] = useState({});
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortOrder, setSortOrder] = useState('default');
   const productsPerPage = 12;
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const products = useSelector((state) => state.products.products);
   const categories = useSelector((state) => state.categories.categories);
   const cartItems = useSelector((state) => state.cartItems);
@@ -73,7 +75,7 @@ const Dashboard = () => {
                   setSearchProduct(inputValue);
                   setCurrentPage(1);
                 }}
-                className="text-orange-500 hover:text-orange-600 pl-1 pr-3 transition"
+                className="text-white bg-black hover:bg-gray-700 rounded-full px-5 transition"
               >
                 <FaSearch className="text-xl" />
               </button>
@@ -185,14 +187,59 @@ const Dashboard = () => {
                     <p className="font-bold text-orange-500">₹{item.price}</p>
                   </Link>
                   <div className="mt-4 flex flex-col gap-2">
+
+                    {/* Quantity Selector */}
+                    <div className="flex items-center gap-4 mb-4">
+                      <button
+                        onClick={() =>
+                          setQuantity((prev) => ({
+                            ...prev,
+                            [item.id]: Math.max(1, (prev[item.id] || 1) - 1),
+                          }))
+                        }
+                        className="px-3 py-1 border rounded font-bold text-lg hover:bg-gray-100"
+                      >
+                        -
+                      </button>
+                      <span className="text-lg font-semibold">{quantity[item.id] || 1}</span>
+                      <button
+                        onClick={() =>
+                          setQuantity((prev) => ({
+                            ...prev,
+                            [item.id]: (prev[item.id] || 1) + 1,
+                          }))
+                        }
+                        className="px-3 py-1 border rounded font-bold text-lg hover:bg-gray-100"
+                      >
+                        +
+                      </button>
+                    </div>
+
+
+                    <button
+                      className="flex-1 bg-orange-500 text-white py-2 px-4 rounded-lg hover:bg-orange-400 flex items-center justify-center gap-2"
+                      onClick={() => {
+                        const itemWithQuantity = { ...item, quantity: quantity[item.id] || 1 };
+                        dispatch(addToCart(itemWithQuantity));
+                        setQuantity((prev) => ({ ...prev, [item.id]: 1 }));
+                        navigate('/cart');
+                      }}
+                    >
+                      Buy Now
+                    </button>
                     <button
                       className="border border-orange-500 text-orange-500 rounded-lg py-1 hover:bg-orange-50"
-                      onClick={() => dispatch(addToCart(item))}
+                      onClick={() => {
+                        const itemWithQuantity = { ...item, quantity: quantity[item.id] || 1 };
+                        dispatch(addToCart(itemWithQuantity));
+                        setQuantity((prev) => ({ ...prev, [item.id]: 1 }));
+                      }}
                     >
                       <div className="flex items-center justify-center gap-2">
                         <CiShoppingCart /> Add to Cart
                       </div>
                     </button>
+
                     <button
                       className="border border-pink-400 text-pink-500 rounded-lg py-1 hover:bg-pink-50"
                       onClick={() => {
@@ -205,6 +252,7 @@ const Dashboard = () => {
                       </div>
                     </button>
                   </div>
+
                 </div>
               ))}
             </div>

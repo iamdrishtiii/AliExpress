@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { CiHeart, CiShoppingCart } from 'react-icons/ci'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
-import { addToCart, addToWishlist } from '../action'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { addToCart, addToWishlist, decreaseQuantity, increaseQuantity } from '../action'
 import { CgProfile } from 'react-icons/cg'
 import { BiHomeAlt } from 'react-icons/bi'
 import { FaMoneyCheckAlt, FaUndoAlt, FaTruck, FaShippingFast, FaAward } from 'react-icons/fa';
 
 const DetailPage = () => {
+  const [quantity, setQuantity] = useState({});
+  const navigate = useNavigate();
   const products = useSelector((state) => state.products.products)
   const params = useParams()
   const productData = products.filter((item) => {
@@ -95,6 +97,34 @@ const DetailPage = () => {
                 <p className="text-gray-700 text-sm leading-relaxed">{item.description}</p>
               </div>
 
+              {/* Quantity Selector */}
+              <div className="flex items-center gap-4 mb-4">
+                <button
+                  onClick={() =>
+                    setQuantity((prev) => ({
+                      ...prev,
+                      [item.id]: Math.max(1, (prev[item.id] || 1) - 1),
+                    }))
+                  }
+                  className="px-3 py-1 border rounded font-bold text-lg hover:bg-gray-100"
+                >
+                  -
+                </button>
+                <span className="text-lg font-semibold">{quantity[item.id] || 1}</span>
+                <button
+                  onClick={() =>
+                    setQuantity((prev) => ({
+                      ...prev,
+                      [item.id]: (prev[item.id] || 1) + 1,
+                    }))
+                  }
+                  className="px-3 py-1 border rounded font-bold text-lg hover:bg-gray-100"
+                >
+                  +
+                </button>
+              </div>
+
+
               <div className="flex flex-wrap justify-center items-center gap-4 py-6 bg-white">
                 {/* Item 1 */}
                 <div className="flex flex-col items-center text-center w-16">
@@ -140,9 +170,26 @@ const DetailPage = () => {
 
               {/* Buttons */}
               <div className="flex flex-col sm:flex-row gap-4">
+
+                <button
+                  className="flex-1 bg-orange-500 text-white py-2 px-4 rounded-lg hover:bg-orange-400 flex items-center justify-center gap-2"
+                  onClick={() => {
+                    const itemWithQuantity = { ...item, quantity: quantity[item.id] || 1 };
+                    dispatch(addToCart(itemWithQuantity));
+                    setQuantity((prev) => ({ ...prev, [item.id]: 1 }));
+                    navigate('/cart');
+                  }}
+                >
+                  Buy Now
+                </button>
                 <button
                   className="flex-1 border border-orange-500 text-orange-500 py-2 px-4 rounded-lg hover:bg-orange-50  flex items-center justify-center gap-2"
-                  onClick={() => dispatch(addToCart(item))}
+                  onClick={() => {
+                    const itemWithQuantity = { ...item, quantity: quantity[item.id] || 1 };
+                    dispatch(addToCart(itemWithQuantity));
+                    setQuantity((prev) => ({ ...prev, [item.id]: 1 }));
+                  }}
+
                 >
                   <CiShoppingCart className="text-lg" />
                   Add to Cart
