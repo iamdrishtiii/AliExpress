@@ -109,7 +109,7 @@ const DetailPage = () => {
                   <div className="bg-gray-100 rounded-full p-3">
                     <FaUndoAlt className="text-orange-400 text-2xl" />
                   </div>
-                  <p className="text-sm text-blue-800 font-medium mt-2">10 days Returnable</p>
+                  <p className="text-sm text-blue-800 font-medium mt-2">7 days Returnable</p>
                 </div>
 
                 {/* Item 3 */}
@@ -117,7 +117,7 @@ const DetailPage = () => {
                   <div className="bg-gray-100 rounded-full p-3">
                     <FaTruck className="text-orange-400 text-2xl" />
                   </div>
-                  <p className="text-sm text-blue-800 font-medium mt-2">Amazon Delivered</p>
+                  <p className="text-sm text-blue-800 font-medium mt-2">AliExpress Delivered</p>
                 </div>
 
                 {/* Item 4 */}
