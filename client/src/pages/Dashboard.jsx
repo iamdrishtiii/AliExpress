@@ -52,8 +52,8 @@ const Dashboard = () => {
   const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
-  const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
-  const wishCount = wishlistItems.reduce((total, item) => total + item.quantity, 0);
+  const cartCount = cartItems ||[].reduce((total, item) => total + item.quantity, 0);
+  const wishCount = wishlistItems||[].reduce((total, item) => total + item.quantity, 0);
 
   return (
     <div className="min-h-screen  bg-slate-100 pb-24 pb-[1150px] md:pb-[610px] lg:pb-[500px]">
