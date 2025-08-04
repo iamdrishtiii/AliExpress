@@ -20,7 +20,7 @@ const Wishlist = () => {
       <div className="px-4 md:px-8 py-8 max-w-6xl mx-auto">
         <h2 className="text-3xl font-bold mb-6 text-gray-800">Your Wishlist</h2>
         {wishlistItems.length === 0 ? (
-          <p className="text-lg text-gray-600">Your Wishlist is empty.</p>
+          <p className="text-lg text-gray-600 pb-64">Your Wishlist is empty.</p>
         ) : (
 
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">

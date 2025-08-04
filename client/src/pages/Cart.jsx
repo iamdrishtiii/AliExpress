@@ -18,7 +18,10 @@ const Cart = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+ const subtotal = cartItems.reduce((total, item) => {
+  const discountedPrice = Math.round(item.price - (item.price * (item.discount || 0) / 100));
+  return total + discountedPrice * item.quantity;
+}, 0);
 
   return (
     <div className="min-h-screen pb-[1150px] md:pb-[610px] lg:pb-[500px] bg-slate-100">
@@ -27,7 +30,7 @@ const Cart = () => {
         <h2 className="text-3xl font-bold mb-6 text-gray-800">Shopping Cart</h2>
 
         {cartItems.length === 0 ? (
-          <p className="text-lg text-gray-600">Your cart is empty.</p>
+          <p className="text-lg text-gray-600 pb-64">Your cart is empty.</p>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Cart Items Grid */}
@@ -40,6 +43,7 @@ const Cart = () => {
                 else {
                   discountedPrice = (item.price)
                 }
+                
                 return (
                   <div
                     key={item.id}
