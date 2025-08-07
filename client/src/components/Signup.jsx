@@ -110,26 +110,43 @@ const Signup = ({ setActive }) => {
   }
 
 
+
   const handleSignup = () => {
+    const userData = {
+      email: email,
+      password: password,
+      repeatPassword: repeatPassword,
+    };
 
-    // const userData = {
-    //   email: email,
-    //   password: password,
-    //   repeatPassword: repeatPassword,
-    // };
-    if (validateEmail(email) && validatePassword(password) && validateRepeatPassword(repeatPassword)) {
-      setModalMessage("Signup successful!");
-      setOpenModal(true);
-      setTimeout(() => {
-        setOpenModal(false)
-        navigate("/")
-      }, 2000);
-      setEmail("")
-      setPassword("")
-
-    }
+    axios
+      .post(`${Authurl}/signup`, userData)
+      .then((response) => {
+        console.log("Signup successful:", response.data);
+        localStorage.setItem("token", response.data.token)
+        setModalMessage("Signup successful!");
+        setOpenModal(true);
+        setTimeout(() => {
+          setOpenModal(false)
+          navigate("/")
+        }, 2000);
+        setEmail("")
+        setPassword("")
+          ;
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 400 && password === repeatPassword) {
+          console.error("Signup error:", error.response.data);
+          setModalMessage("Already registered Email")
+          setOpenModal(true);
+          setTimeout(() => setOpenModal(false), 2000);
+        } else {
+          console.error("Signup error:", error.response.data);
+          setModalMessage("Signup failed. Please try again.");
+          setOpenModal(true);
+          setTimeout(() => setOpenModal(false), 2000);
+        }
+      });
   };
-
   return (
     <div className="flex flex-col min-h-screen pb-32 pb-[1150px] md:pb-[610px] lg:pb-[500px] bg-slate-100">
       <Navbar />

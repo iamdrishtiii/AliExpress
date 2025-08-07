@@ -16,7 +16,7 @@ const Login = ({ setActive }) => {
     border: 'none',
     boxShadow: 24,
     p: 3,
-    borderRadius:'16px'
+    borderRadius: '16px'
   };
 
   const [email, setEmail] = useState("");
@@ -83,25 +83,34 @@ const Login = ({ setActive }) => {
     }
   }
 
-
   const handleLogin = () => {
-    if (validateEmail(email) && validatePassword(password)) {
 
-      // const userData = {
-      //   email: email,
-      //   password: password
-      // };
-      setModalMessage("Login Successfully!");
-      setOpenModal(true);
-      setEmail("")
-      setPassword("")
-      setTimeout(() => {
-        setOpenModal(false)
-        navigate("/")
-      }, 2000);
-
+    const userData = {
+      email: email,
+      password: password
     };
-  }
+
+    axios.post(`${Authurl}/login`, userData)
+      .then(response => {
+        localStorage.setItem("token", response.data.token)
+        console.log("Login successful:", response.data);
+        setModalMessage("Login Successfully!");
+        setOpenModal(true);
+        setTimeout(() => {
+          setOpenModal(false)
+          navigate("/")
+        }, 2000);
+        setEmail("")
+        setPassword("")
+          ;
+      })
+      .catch(error => {
+        console.error("Login error:", error.response.data);
+        setModalMessage("Login failed.");
+        setOpenModal(true);
+        setTimeout(() => setOpenModal(false), 2000);
+      });
+  };
 
   return (
     <div className="flex flex-col min-h-screen pb-32 pb-[1150px] md:pb-[610px] lg:pb-[500px] bg-slate-100">
