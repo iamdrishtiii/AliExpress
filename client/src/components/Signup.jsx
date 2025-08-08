@@ -133,15 +133,19 @@ const Signup = ({ setActive, setUser }) => {
   }
 
   const handleSignup = () => {
-    const userData = { name, email, password, repeatPassword };
+    const userData = {
+      name: name,
+      email: email,
+      password: password,
+      repeatPassword: repeatPassword,
+    };
 
     axios
       .post(`${Authurl}/signup`, userData)
       .then((response) => {
-        const { token, user } = response.data; // user should have {name, email}
+        const { token, user } = response.data;
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
-        setUser(user);
         setModalMessage("Signup successful!");
         setOpenModal(true);
         setTimeout(() => {
@@ -152,15 +156,20 @@ const Signup = ({ setActive, setUser }) => {
         setEmail("")
         setPassword("")
         setRepeatPassword("")
+        setUser(user);
       })
       .catch((error) => {
         if (error.response && error.response.status === 400 && password === repeatPassword) {
+          console.error("Signup error:", error.response.data);
           setModalMessage("Already registered Email")
+          setOpenModal(true);
+          setTimeout(() => setOpenModal(false), 2000);
         } else {
-          setModalMessage("Signup failed. Please try again.")
+          console.error("Signup error:", error.response.data);
+          setModalMessage("Signup failed. Please try again.");
+          setOpenModal(true);
+          setTimeout(() => setOpenModal(false), 2000);
         }
-        setOpenModal(true);
-        setTimeout(() => setOpenModal(false), 2000);
       });
   };
   return (

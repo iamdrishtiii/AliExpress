@@ -53,7 +53,7 @@ userroute.post(
 
       // Generate JWT token
       const token = jwt.sign(
-        { userId: newUser._id, name: userNew.name, email: newUser.email },
+        { userId: newUser._id, name: newUser.name, email: newUser.email },
         process.env.JWT_SECRET,
         { expiresIn: "1h" }
       );
@@ -61,8 +61,10 @@ userroute.post(
       // Send token as response
       res.status(201).json({
         message: "User registered successfully",
-        token: token,
+        token,
+        user: { id: newUser._id, name: newUser.name, email: newUser.email }
       });
+
     } catch (error) {
       console.error("Error in signup route:", error);
       res.status(500).json({ error: "Internal Server Error" });
@@ -101,7 +103,7 @@ userroute.post(
 
       // Generate JWT token
       const token = jwt.sign(
-        { userId: user._id,name:user.name, email: user.email },
+        { userId: user._id, name: user.name, email: user.email },
         process.env.JWT_SECRET,
         { expiresIn: "1h" }
       );

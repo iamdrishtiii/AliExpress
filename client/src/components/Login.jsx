@@ -91,13 +91,13 @@ const Login = ({ setActive, setUser }) => {
         const { token, user } = response.data; // user should have {name, email}
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
-        setUser(user);
         setModalMessage("Login Successfully!");
         setOpenModal(true);
         setTimeout(() => {
           setOpenModal(false);
           navigate("/");
         }, 1000);
+        setUser(user);
         setEmail("");
         setPassword("");
       })

@@ -9,7 +9,7 @@ function Auth() {
   // Parse user object from localStorage on load
   const [user, setUser] = useState(() => {
     const savedUser = localStorage.getItem('user')
-    return savedUser ? JSON.parse(savedUser) : null
+    return savedUser ? savedUser : null
   })
 
   // Sync user state to localStorage when it changes
