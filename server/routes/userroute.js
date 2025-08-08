@@ -10,6 +10,7 @@ const userroute = express.Router();
 userroute.post(
   "/signup",
   [
+    check("name").isLength({ min: 5 }), //validate name length
     check("email").isEmail().normalizeEmail(), // Validate email format
     check("password").isLength({ min: 5 }), // Validate password length
     check("repeatPassword").custom((value, { req }) => {
@@ -28,8 +29,8 @@ userroute.post(
         return res.status(400).json({ errors: errors.array() });
       }
 
-      // Extract email and password from request body
-      const { email, password } = req.body;
+      // Extract name email and password from request body
+      const { name, email, password } = req.body;
 
       // Check if email is already registered
       const existingUser = await User.findOne({ email });
@@ -42,6 +43,7 @@ userroute.post(
 
       // Create new user 
       const newUser = new User({
+        name,
         email,
         password: hashedPassword,
       });
@@ -51,7 +53,7 @@ userroute.post(
 
       // Generate JWT token
       const token = jwt.sign(
-        { userId: newUser._id, email: newUser.email },
+        { userId: newUser._id, name: userNew.name, email: newUser.email },
         process.env.JWT_SECRET,
         { expiresIn: "1h" }
       );
@@ -99,7 +101,7 @@ userroute.post(
 
       // Generate JWT token
       const token = jwt.sign(
-        { userId: user._id, email: user.email },
+        { userId: user._id,name:user.name, email: user.email },
         process.env.JWT_SECRET,
         { expiresIn: "1h" }
       );

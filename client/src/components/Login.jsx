@@ -4,8 +4,10 @@ import { Modal, Box, Typography } from '@mui/material';
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { FaRegEyeSlash } from "react-icons/fa"
 import Navbar from "./Navbar";
+import axios from "axios";
+import { Authurl } from "../assets/api";
 
-const Login = ({ setActive }) => {
+const Login = ({ setActive, setUser }) => {
   const style = {
     position: 'absolute',
     top: '50%',
@@ -18,7 +20,6 @@ const Login = ({ setActive }) => {
     p: 3,
     borderRadius: '16px'
   };
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -82,35 +83,34 @@ const Login = ({ setActive }) => {
       validatePassword(e.target.value)
     }
   }
-
   const handleLogin = () => {
-
-    const userData = {
-      email: email,
-      password: password
-    };
+    const userData = { email, password };
 
     axios.post(`${Authurl}/login`, userData)
       .then(response => {
-        localStorage.setItem("token", response.data.token)
-        console.log("Login successful:", response.data);
+        const { token, user } = response.data; // user should have {name, email}
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
+        setUser(user);
         setModalMessage("Login Successfully!");
         setOpenModal(true);
         setTimeout(() => {
-          setOpenModal(false)
-          navigate("/")
-        }, 2000);
-        setEmail("")
-        setPassword("")
-          ;
+          setOpenModal(false);
+          navigate("/");
+        }, 1000);
+        setEmail("");
+        setPassword("");
       })
       .catch(error => {
-        console.error("Login error:", error.response.data);
+        console.error("Login error:", error.response?.data || error.message);
         setModalMessage("Login failed.");
         setOpenModal(true);
         setTimeout(() => setOpenModal(false), 2000);
       });
   };
+
+
+
 
   return (
     <div className="flex flex-col min-h-screen pb-32 pb-[1150px] md:pb-[610px] lg:pb-[500px] bg-slate-100">
@@ -127,7 +127,7 @@ const Login = ({ setActive }) => {
               className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-black focus:border-black sm:text-sm"
               placeholder="you@example.com"
               value={email}
-              onChange={(e) => validateEmail(e.target.value)}
+              onChange={handleChange}
               required
             />
             {error.emailError && <p className="text-red-500 text-xs mt-1">{error.emailError}</p>}
@@ -142,7 +142,7 @@ const Login = ({ setActive }) => {
                 className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-black focus:border-black sm:text-sm"
                 placeholder="Password"
                 value={password}
-                onChange={(e) => validatePassword(e.target.value)}
+                onChange={handleChange}
                 required
               />
               <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 cursor-pointer"

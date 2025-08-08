@@ -7,8 +7,9 @@ import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { Modal, Box, Typography } from '@mui/material';
 import { FaRegEyeSlash } from "react-icons/fa";
 import Navbar from "./Navbar";
+import { Authurl } from "../assets/api";
 
-const Signup = ({ setActive }) => {
+const Signup = ({ setActive, setUser }) => {
   const style = {
     position: 'absolute',
     top: '50%',
@@ -21,6 +22,7 @@ const Signup = ({ setActive }) => {
     p: 3,
     borderRadius: '16px'
   };
+  const [name, setName] = useState("")
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
@@ -31,12 +33,31 @@ const Signup = ({ setActive }) => {
   const [openModal, setOpenModal] = useState(false);
 
   const [error, setError] = useState({
+    nameError: "",
     emailError: "",
     passwordError: "",
     repeatPasswordError: ""
   })
 
   const [formValid, setFormValid] = useState(false)
+  const validateName = (name) => {
+    let nError = error.nameError;
+    let isValid = formValid;
+
+    if (name.trim().length < 3) {
+      nError = "This is invalid";
+      isValid = false;
+    } else {
+      isValid = true;
+      nError = "";
+    }
+
+    setName(name);
+    setFormValid(isValid);
+    setError({ ...error, nameError: nError });
+
+    return isValid;
+  };
 
   const validateEmail = (email) => {
     let eError = error.emailError;
@@ -100,7 +121,9 @@ const Signup = ({ setActive }) => {
   }
 
   const handleChange = (e) => {
-    if (e.target.id === "email") {
+    if (e.target.id === "name") {
+      validateName(e.target.value)
+    } else if (e.target.id === "email") {
       validateEmail(e.target.value)
     } else if (e.target.id === "password") {
       validatePassword(e.target.value)
@@ -109,42 +132,35 @@ const Signup = ({ setActive }) => {
     }
   }
 
-
-
   const handleSignup = () => {
-    const userData = {
-      email: email,
-      password: password,
-      repeatPassword: repeatPassword,
-    };
+    const userData = { name, email, password, repeatPassword };
 
     axios
       .post(`${Authurl}/signup`, userData)
       .then((response) => {
-        console.log("Signup successful:", response.data);
-        localStorage.setItem("token", response.data.token)
+        const { token, user } = response.data; // user should have {name, email}
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
+        setUser(user);
         setModalMessage("Signup successful!");
         setOpenModal(true);
         setTimeout(() => {
           setOpenModal(false)
           navigate("/")
-        }, 2000);
+        }, 1000);
+        setName("")
         setEmail("")
         setPassword("")
-          ;
+        setRepeatPassword("")
       })
       .catch((error) => {
         if (error.response && error.response.status === 400 && password === repeatPassword) {
-          console.error("Signup error:", error.response.data);
           setModalMessage("Already registered Email")
-          setOpenModal(true);
-          setTimeout(() => setOpenModal(false), 2000);
         } else {
-          console.error("Signup error:", error.response.data);
-          setModalMessage("Signup failed. Please try again.");
-          setOpenModal(true);
-          setTimeout(() => setOpenModal(false), 2000);
+          setModalMessage("Signup failed. Please try again.")
         }
+        setOpenModal(true);
+        setTimeout(() => setOpenModal(false), 2000);
       });
   };
   return (
@@ -155,6 +171,18 @@ const Signup = ({ setActive }) => {
           <h2 className="text-3xl font-extrabold mb-6 text-center text-gray-800">Create Account</h2>
 
           <div className="mb-4">
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
+            <input
+              type="name"
+              id="name"
+              value={name}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="Enter your name"
+            />
+            {error.nameError && <p className="text-sm text-red-500 mt-1">{error.nameError}</p>}
+          </div>
+          <div className="mb-4 relative">
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email address</label>
             <input
               type="email"
