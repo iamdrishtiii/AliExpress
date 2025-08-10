@@ -6,8 +6,9 @@ const userroute = require("./routes/userroute")
 const cartroute = require("./routes/cartroute")
 const wishlistroute = require("./routes/wishlistroute")
 const productroute = require("./routes/productroute")
+const categoriesroute = require("./routes/categoriesroute")
 const cookieParser = require('cookie-parser')
-const {Products} = require("./Helper")
+const {Products,Categories} = require("./Helper")
 const cors = require('cors');
 dotenv.config();
 const Helper = require("./Helper")
@@ -24,6 +25,8 @@ app.use(cookieParser());
 
 dbConnection()
 Products()
+Categories()
+app.use(categoriesroute)
 app.use(userroute)
 app.use(cartroute)
 app.use(wishlistroute)

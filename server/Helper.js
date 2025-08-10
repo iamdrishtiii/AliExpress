@@ -1,4 +1,5 @@
 const ProductSchema = require('./models/productSchema')
+const categoriesSchema = require('./models/categoriesSchema')
 
 const Products = async () => {
     console.log('Fetching products...')
@@ -35,5 +36,28 @@ const Products = async () => {
         console.error('Failed to import products:', err);
     }
 }
+const Categories = async () => {
+    console.log("Fetching categories...")
+    try {
+        const response = await fetch("https://fakestoreapi.in/api/products/category", {
+            method: "GET"
+        })
+        let { categories } = await response.json()
 
-module.exports = { Products }
+        for (let category of categories) {
+            const exists = await categoriesSchema.findOne({ categories: category })
+            if (!exists) {
+                await categoriesSchema.create({
+                    categories:category
+                })
+            } else {
+                return console.log('Categories Data Already Exists in the Database')
+            }
+        }
+        console.log('Categories imported')
+    } catch (error) {
+        console.error('Failed to import products:', error);
+    }
+}
+
+module.exports = { Products, Categories }
