@@ -27,7 +27,7 @@ function Auth() {
   }
 
   return (
-    <div>
+    <div className="pb-[1100px] md:pb-[600px] lg:pb-[500px]">
       {!user ? (
         active === 0 ? (
           <Signup setActive={setActive} setUser={setUser} />
@@ -35,7 +35,7 @@ function Auth() {
           <Login setActive={setActive} setUser={setUser} />
         )
       ) : (
-        <div>
+        <div className="pb-[500px] md:pb-[400px] lg:pb-[300px]">
           <Navbar />
           <div className='flex'>
             <h2>Welcome, {user.name}</h2>

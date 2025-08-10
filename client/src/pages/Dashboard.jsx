@@ -24,7 +24,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const products = useSelector((state) => state.products.products);
-  const categories = useSelector((state) => state.categories.categories);
+  const categories = useSelector((state) => state.categories.categories)
   const cartItems = useSelector((state) => state.cartItems);
   const wishlistItems = useSelector((state) => state.wishlistItems);
 
@@ -171,15 +171,15 @@ const Dashboard = () => {
                 </div>
                 {categories.map((cat) => (
                   <div
-                    key={cat}
-                    className={`px-4 py-2 cursor-pointer capitalize hover:bg-gray-200 ${selectedCategory === cat ? 'bg-gray-100 font-semibold' : ''}`}
+                    key={cat._id}
+                    className={`px-4 py-2 cursor-pointer capitalize hover:bg-gray-200 ${selectedCategory === cat.categories ? 'bg-gray-100 font-semibold' : ''}`}
                     onClick={() => {
-                      setSelectedCategory(cat);
+                      setSelectedCategory(cat.categories);
                       setShowDropdown(false);
                       setCurrentPage(1);
                     }}
                   >
-                    {cat}
+                    {cat.categories}
                   </div>
                 ))}
               </div>
