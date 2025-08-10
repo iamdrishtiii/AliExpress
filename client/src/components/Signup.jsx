@@ -28,7 +28,7 @@ const Signup = ({ setActive, setUser }) => {
   const [repeatPassword, setRepeatPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [repeatShowPassword, setRepeatShowPassword] = useState(false);
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const [modalMessage, setModalMessage] = useState("")
   const [openModal, setOpenModal] = useState(false);
 
@@ -133,15 +133,10 @@ const Signup = ({ setActive, setUser }) => {
   }
 
   const handleSignup = () => {
-    const userData = {
-      name: name,
-      email: email,
-      password: password,
-      repeatPassword: repeatPassword,
-    };
+    const userData = { name, email, password, repeatPassword }
 
-    axios
-      .post(`${Authurl}/signup`, userData)
+    // Now send request
+    axios.post(`${Authurl}/signup`, userData)
       .then((response) => {
         const { token, user } = response.data;
         localStorage.setItem("token", token);
@@ -151,27 +146,19 @@ const Signup = ({ setActive, setUser }) => {
         setTimeout(() => {
           setOpenModal(false)
           navigate("/")
-        }, 1000);
-        setName("")
-        setEmail("")
-        setPassword("")
-        setRepeatPassword("")
+        }, 1000); // increase to 2s so user sees it
+        setName(""); setEmail(""); setPassword(""); setRepeatPassword("");
         setUser(user);
       })
       .catch((error) => {
-        if (error.response && error.response.status === 400 && password === repeatPassword) {
-          console.error("Signup error:", error.response.data);
-          setModalMessage("Already registered Email")
-          setOpenModal(true);
-          setTimeout(() => setOpenModal(false), 2000);
-        } else {
-          console.error("Signup error:", error.response.data);
-          setModalMessage("Signup failed. Please try again.");
-          setOpenModal(true);
-          setTimeout(() => setOpenModal(false), 2000);
-        }
+        setModalMessage(error.response?.status === 400 && password === repeatPassword
+          ? "Already registered Email"
+          : "Signup failed. Please try again.");
+        setOpenModal(true);
+        setTimeout(() => setOpenModal(false), 2000);
       });
   };
+
   return (
     <div className="flex flex-col min-h-screen pb-32 pb-[1150px] md:pb-[610px] lg:pb-[500px] bg-slate-100">
       <Navbar />

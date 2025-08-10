@@ -5,7 +5,6 @@ import Navbar from '../components/Navbar'
 
 function Auth() {
   const [active, setActive] = useState(0)
-
   // Parse user object from localStorage on load
   const [user, setUser] = useState(() => {
     const savedUser = localStorage.getItem('user')
@@ -29,7 +28,13 @@ function Auth() {
 
   return (
     <div>
-      {user ? (
+      {!user ? (
+        active === 0 ? (
+          <Signup setActive={setActive} setUser={setUser} />
+        ) : (
+          <Login setActive={setActive} setUser={setUser} />
+        )
+      ) : (
         <div>
           <Navbar />
           <div className='flex'>
@@ -42,12 +47,6 @@ function Auth() {
             </button>
           </div>
         </div>
-      ) : (
-        active === 0 ? (
-          <Signup setActive={setActive} setUser={setUser} />
-        ) : (
-          <Login setActive={setActive} setUser={setUser} />
-        )
       )}
     </div>
   )

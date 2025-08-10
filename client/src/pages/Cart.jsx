@@ -18,10 +18,10 @@ const Cart = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
- const subtotal = cartItems.reduce((total, item) => {
-  const discountedPrice = Math.round(item.price - (item.price * (item.discount || 0) / 100));
-  return total + discountedPrice * item.quantity;
-}, 0);
+  const subtotal = cartItems.reduce((total, item) => {
+    const discountedPrice = Math.round(item.price - (item.price * (item.discount || 0) / 100));
+    return total + discountedPrice * item.quantity;
+  }, 0);
 
   return (
     <div className="min-h-screen pb-[1150px] md:pb-[610px] lg:pb-[500px] bg-slate-100">
@@ -43,7 +43,7 @@ const Cart = () => {
                 else {
                   discountedPrice = (item.price)
                 }
-                
+
                 return (
                   <div
                     key={item.id}
@@ -71,7 +71,7 @@ const Cart = () => {
                       <p className=" text-sm text-gray-800 pl-1">Dispatch within <span className='text-gray-900'>2 days</span> </p>
                       <p className="text-sm text-gray-700 line-through pl-2 mt-1">Price: Rs. {item.price}</p>
                       <p className="text-green-600 font-semibold flex flex-wrap gap-1"><FaLongArrowAltDown className='h-5' />{item.discount || 0}% OFF
-                      <p className="text-sm text-gray-700 pl-2"> Rs. {discountedPrice}</p></p>
+                        <p className="text-sm text-gray-700 pl-2"> Rs. {discountedPrice}</p></p>
 
                       <p className="font-semibold text-orange-600 mt-1">
                         Total: Rs. {discountedPrice * item.quantity}

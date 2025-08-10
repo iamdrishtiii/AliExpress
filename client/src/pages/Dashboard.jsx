@@ -11,6 +11,7 @@ import { FaLongArrowAltDown } from 'react-icons/fa';
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(true);
+  const [suggestions, setSuggestions] = useState([]);
   const [searchProduct, setSearchProduct] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -69,8 +70,41 @@ const Dashboard = () => {
                 placeholder="Search for products..."
                 className="flex-1 pl-1 sm:px-4 py-2 text-lg rounded-full bg-white"
                 value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setInputValue(value);
+
+                  if (value.trim()) {
+                    // Filter products for suggestions
+                    const matched = products
+                      .filter(item =>
+                        item.title.toLowerCase().includes(value.toLowerCase())
+                      )
+                      .slice(0, 5); // Limit to 5 suggestions
+                    setSuggestions(matched);
+                  } else {
+                    setSuggestions([]);
+                  }
+                }}
               />
+
+              {suggestions.length > 0 && (
+                <div className="absolute mt-12 bg-white shadow-lg rounded-lg w-full max-w-fit z-50 border border-gray-200">
+                  {suggestions.map((item) => (
+                    <div
+                      key={item.id}
+                      className="px-4 py-1 cursor-pointer line-clamp-1 hover:bg-gray-100"
+                      onClick={() => {
+                        setInputValue(item.title);
+                        setSearchProduct(item.title);
+                        setSuggestions([]);
+                      }}
+                    >
+                      {item.title}
+                    </div>
+                  ))}
+                </div>
+              )}
               <button
                 onClick={() => {
                   setSearchProduct(inputValue);
@@ -216,13 +250,24 @@ const Dashboard = () => {
                   return (
                     <div key={item.id} className="bg-white rounded-lg shadow hover:shadow-md hover:scale-105 p-2 flex flex-col justify-between" data-testid="card">
                       <Link to={`/${item.id}/${item.color}/${item.price}/${item.brand}`}>
-                        <img src={item.image} alt={item.title} className="w-40 h-44 mb-2" />
+                        <div className=' flex justify-center items-center'><img src={item.image} alt={item.title} className="h-40 w-40 mb-2" /></div>
                         <h3 className="font-semibold text-lg mb-1 line-clamp-2" data-testid="title">{item.title}</h3>
                         <p className="text-sm text-gray-800 ">Color : {item.color}</p>
                         <p className="font-bold text-orange-500">₹{item.price}</p>
                       </Link>
+
+
                       <div className="mt-4 flex flex-col gap-2">
 
+                        <button
+                          className="border text-red-500 rounded-lg py-1 px-1 hover:bg-pink-100 absolute right-2 top-2 "
+                          onClick={() => {
+                            const exists = wishlistItems.some((product) => product.id === item.id);
+                            if (!exists) dispatch(addToWishlist(item));
+                          }}
+                        >
+                          <CiHeart className='size-6' />
+                        </button>
                         {/* Quantity Selector */}
                         <div className="flex items-center gap-4 mb-4">
                           <button
@@ -275,17 +320,7 @@ const Dashboard = () => {
                           </div>
                         </button>
 
-                        <button
-                          className="border border-pink-400 text-pink-500 rounded-lg py-1 hover:bg-pink-50"
-                          onClick={() => {
-                            const exists = wishlistItems.some((product) => product.id === item.id);
-                            if (!exists) dispatch(addToWishlist(item));
-                          }}
-                        >
-                          <div className="flex items-center justify-center gap-2">
-                            <CiHeart /> Add to Wishlist
-                          </div>
-                        </button>
+
                       </div>
 
                     </div>
