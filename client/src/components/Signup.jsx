@@ -135,7 +135,6 @@ const Signup = ({ setActive, setUser }) => {
   const handleSignup = () => {
     const userData = { name, email, password, repeatPassword }
 
-    // Now send request
     axios.post(`${Authurl}/signup`, userData)
       .then((response) => {
         const { token, user } = response.data;
@@ -146,9 +145,9 @@ const Signup = ({ setActive, setUser }) => {
         setTimeout(() => {
           setOpenModal(false)
           navigate("/")
-        }, 1000); // increase to 2s so user sees it
+        }, 1000);
+        setUser(name);
         setName(""); setEmail(""); setPassword(""); setRepeatPassword("");
-        setUser(user);
       })
       .catch((error) => {
         setModalMessage(error.response?.status === 400 && password === repeatPassword

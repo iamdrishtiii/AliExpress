@@ -3,7 +3,7 @@ const User = require('../models/userSchema')
 const getCart = async (req, res) => {
        const { userId } = req.user;
        if (!userId) {
-              return res.status(401).json({ suceess: false, message: 'User nhi mila' })
+              return res.status(401).json({ message: 'User nhi mila' })
        }
 
        try {
@@ -44,7 +44,7 @@ const removeFromCart = async (req, res) => {
        const { productId } = req.params
 
        if (!productId) {
-              return res.status(401).json({ suceess: false, message: 'productId not found' })
+              return res.status(401).json({ message: 'productId not found' })
        }
        try {
               const user = await User.findById({ _id: userId })

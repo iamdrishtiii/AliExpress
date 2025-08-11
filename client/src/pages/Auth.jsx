@@ -8,12 +8,12 @@ function Auth() {
   // Parse user object from localStorage on load
   const [user, setUser] = useState(() => {
     const savedUser = localStorage.getItem('user')
-    return savedUser ? savedUser : null
+    return savedUser ? JSON.parse(savedUser) : null
   })
 
   // Sync user state to localStorage when it changes
   useEffect(() => {
-    if (user) {
+    if (user) { 
       localStorage.setItem('user', JSON.stringify(user))
     } else {
       localStorage.removeItem('user')
@@ -37,15 +37,19 @@ function Auth() {
       ) : (
         <div className="pb-[500px] md:pb-[400px] lg:pb-[300px]">
           <Navbar />
-          <div className='flex'>
-            <h2>Welcome, {user.name}</h2>
+          <div className="flex items-center justify-between p-4 bg-gradient-to-r from-orange-500 to-orange-700 rounded-lg shadow-md mx-4 md:mx-12">
+            <h2 className="text-white text-lg font-semibold tracking-wide">
+              Welcome
+            </h2>
             <button
-              className='px-4 py-2 bg-orange-600 rounded-xl text-white absolute right-8'
+              className="px-5 py-2 bg-white text-orange-700 font-medium rounded-full shadow-lg hover:bg-orange-100 hover:scale-105 transform transition duration-200"
               onClick={handleLogout}
             >
               Logout
             </button>
           </div>
+         
+
         </div>
       )}
     </div>

@@ -3,7 +3,7 @@ const User = require('../models/userSchema')
 const getWishlist = async (req, res) => {
     const { userId } = req.user;
     if (!userId) {
-        return res.status(401).json({ suceess: false, message: 'User not found' })
+        return res.status(401).json({ message: 'User not found' })
 
     }
     try {
@@ -19,7 +19,7 @@ const addToWishlist = async (req, res) => {
     const { productId, title, image, price, discount } = req.body;
 
     if (!productId || !title || !image || !price || !discount) {
-        return res.status(401).json({ suceess: false, message: 'Require data is not provided' })
+        return res.status(401).json({ message: 'Require data is not provided' })
     }
 
     try {
@@ -38,7 +38,7 @@ const addToWishlist = async (req, res) => {
         return res.status(200).json({ message: 'Added to wishlist!', wishlist: user.wishlist });
 
     } catch (error) {
-        return res.status(401).json({ suceess: false, message: error.message })
+        return res.status(401).json({ message: error.message })
     }
 }
 
