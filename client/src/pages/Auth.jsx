@@ -27,7 +27,7 @@ function Auth() {
   }
 
   return (
-    <div className="pb-[1100px] md:pb-[600px] lg:pb-[500px]">
+    <div>
       {!user ? (
         active === 0 ? (
           <Signup setActive={setActive} setUser={setUser} />

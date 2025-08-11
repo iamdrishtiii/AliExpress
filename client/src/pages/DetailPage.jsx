@@ -7,6 +7,7 @@ import { CgProfile } from 'react-icons/cg'
 import { BiHomeAlt } from 'react-icons/bi'
 import { FaMoneyCheckAlt, FaUndoAlt, FaTruck, FaShippingFast, FaAward } from 'react-icons/fa';
 import { FaLongArrowAltDown } from 'react-icons/fa';
+const token = localStorage.getItem("token")
 
 const DetailPage = () => {
   const [quantity, setQuantity] = useState({});
@@ -16,7 +17,6 @@ const DetailPage = () => {
   const productData = products.filter((item) => {
     return item.id == params.id
   })
-  console.log(productData)
   const dispatch = useDispatch();
   const wishlistItems = useSelector((state) => state.wishlistItems);
   const cartItems = useSelector((state) => state.cartItems);
@@ -41,10 +41,12 @@ const DetailPage = () => {
             </Link>
             <Link to="/cart" className="relative">
               <CiShoppingCart className="text-3xl" />
-              {cartCount > 0 && (
+              {token ? (<div>{cartCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
                   {cartCount}
                 </span>
+              )}</div>) : (
+                <div></div>
               )}
             </Link>
             <Link to="/auth">
@@ -182,6 +184,10 @@ const DetailPage = () => {
                   <button
                     className="flex-1 bg-orange-500 text-white py-2 px-4 rounded-lg hover:bg-orange-400 flex items-center justify-center gap-2"
                     onClick={() => {
+                      if (!token) {
+                        navigate("/auth");
+                        return;
+                      }
                       const itemWithQuantity = { ...item, quantity: quantity[item.id] || 1 };
                       dispatch(addToCart(itemWithQuantity));
                       setQuantity((prev) => ({ ...prev, [item.id]: 1 }));
@@ -193,6 +199,10 @@ const DetailPage = () => {
                   <button
                     className="flex-1 border border-orange-500 text-orange-500 py-2 px-4 rounded-lg hover:bg-orange-50  flex items-center justify-center gap-2"
                     onClick={() => {
+                      if (!token) {
+                        alert("You need to login first")
+                        return;
+                      }
                       const itemWithQuantity = { ...item, quantity: quantity[item.id] || 1 };
                       dispatch(addToCart(itemWithQuantity));
                       setQuantity((prev) => ({ ...prev, [item.id]: 1 }));

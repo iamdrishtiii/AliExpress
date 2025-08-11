@@ -8,6 +8,7 @@ import { CgProfile } from 'react-icons/cg';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 import { FaLongArrowAltDown } from 'react-icons/fa';
+import { toast } from 'react-toastify'
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(true);
@@ -20,6 +21,7 @@ const Dashboard = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortOrder, setSortOrder] = useState('default');
   const productsPerPage = 12;
+  const token = localStorage.getItem("token")
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -133,10 +135,12 @@ const Dashboard = () => {
             {/* Cart Icon */}
             <Link to="/cart" className="relative">
               <CiShoppingCart className="text-3xl" />
-              {cartCount > 0 && (
+              {token ? (<div>{cartCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
                   {cartCount}
                 </span>
+              )}</div>) : (
+                <div></div>
               )}
             </Link>
 
@@ -296,9 +300,14 @@ const Dashboard = () => {
                         </div>
 
 
+
                         <button
                           className="flex-1 bg-orange-400 text-white py-2 px-4 rounded-lg hover:bg-orange-400 flex items-center justify-center gap-2"
                           onClick={() => {
+                            if (!token) {
+                              navigate("/auth");
+                              return;
+                            }
                             const itemWithQuantity = { ...item, quantity: quantity[item.id] || 1 };
                             dispatch(addToCart(itemWithQuantity));
                             setQuantity((prev) => ({ ...prev, [item.id]: 1 }));
@@ -307,9 +316,15 @@ const Dashboard = () => {
                         >
                           Buy Now
                         </button>
+
+
                         <button
                           className="border border-orange-500 text-orange-500 rounded-lg py-1 hover:bg-orange-50"
                           onClick={() => {
+                            if (!token) {
+                              alert("You need to first login");
+                              return;
+                            }
                             const itemWithQuantity = { ...item, quantity: quantity[item.id] || 1 };
                             dispatch(addToCart(itemWithQuantity));
                             setQuantity((prev) => ({ ...prev, [item.id]: 1 }));
@@ -321,15 +336,17 @@ const Dashboard = () => {
                         </button>
 
 
+
                       </div>
 
                     </div>
                   )
                 })}
               </div>
-            ) : (
-              <p className="text-center text-red-500 text-lg">No products found.</p>
-            )}
+            )
+              : (
+                <p className="text-center text-red-500 text-lg">No products found.</p>
+              )}
           </div>
         )}
         {/* Pagination */}

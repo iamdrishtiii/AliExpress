@@ -4,7 +4,6 @@ const dbConnection = require("./config/config")
 const dotenv=require("dotenv");
 const userroute = require("./routes/userroute")
 const cartroute = require("./routes/cartroute")
-const wishlistroute = require("./routes/wishlistroute")
 const productroute = require("./routes/productroute")
 const categoriesroute = require("./routes/categoriesroute")
 const cookieParser = require('cookie-parser')
@@ -29,7 +28,6 @@ Categories()
 app.use(categoriesroute)
 app.use(userroute)
 app.use(cartroute)
-app.use(wishlistroute)
 app.use(productroute)
 
 app.get("/",(req,res)=>{

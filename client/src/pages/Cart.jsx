@@ -12,6 +12,7 @@ import { FaLongArrowAltDown } from 'react-icons/fa';
 
 const Cart = () => {
   const [shipping, setShipping] = useState(0);
+  const token = localStorage.getItem("token")
 
   const cartItems = useSelector((state) => state.cartItems);
   const wishlistItems = useSelector((state) => state.wishlistItems);
@@ -26,7 +27,8 @@ const Cart = () => {
   return (
     <div className="min-h-screen pb-[1150px] md:pb-[610px] lg:pb-[500px] bg-slate-100">
       <Navbar />
-      <div className="px-4 md:px-8 py-8 max-w-6xl mx-auto">
+      {token?(
+        <div><div className="px-4 md:px-8 py-8 max-w-6xl mx-auto">
         <h2 className="text-3xl font-bold mb-6 text-gray-800">Shopping Cart</h2>
 
         {cartItems.length === 0 ? (
@@ -142,7 +144,17 @@ const Cart = () => {
             </div>
           </div>
         )}
-      </div>
+      </div></div>
+      ):(
+        <div className="bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded-lg flex items-center gap-3 shadow-md max-w-md mx-auto mt-8">
+  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M12 5.07V5m0 14v.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+  <span className="font-medium">You need to login first</span>
+</div>
+
+      )}
+      
     </div>
   );
 };
