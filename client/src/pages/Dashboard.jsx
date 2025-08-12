@@ -43,7 +43,7 @@ const Dashboard = () => {
 
   const filteredProducts = (products || [])
     .filter((item) => selectedCategory === 'all' || item.category === selectedCategory)
-    .filter((item) => item.title.toLowerCase().includes(searchProduct.toLowerCase()))
+    .filter((item) => ((item?.title || '').toLowerCase()).includes(searchProduct.toLowerCase()))
     .sort((a, b) => {
       if (sortOrder === 'lowToHigh') return a.price - b.price;
       if (sortOrder === 'highToLow') return b.price - a.price;

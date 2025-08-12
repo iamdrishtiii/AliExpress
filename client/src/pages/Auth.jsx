@@ -14,6 +14,7 @@ function Auth() {
   // Sync user state to localStorage when it changes
   useEffect(() => {
     if (user) { 
+      console.log(user)
       localStorage.setItem('user', JSON.stringify(user))
     } else {
       localStorage.removeItem('user')
@@ -39,7 +40,7 @@ function Auth() {
           <Navbar />
           <div className="flex items-center justify-between p-4 bg-gradient-to-r from-orange-500 to-orange-700 rounded-lg shadow-md mx-4 md:mx-12">
             <h2 className="text-white text-lg font-semibold tracking-wide">
-              Welcome
+              Welcome {user?.name || user}
             </h2>
             <button
               className="px-5 py-2 bg-white text-orange-700 font-medium rounded-full shadow-lg hover:bg-orange-100 hover:scale-105 transform transition duration-200"
