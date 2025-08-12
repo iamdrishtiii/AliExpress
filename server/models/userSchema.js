@@ -15,39 +15,7 @@ const userSchema = mongoose.Schema({
               type: String,
               minLength: 5,
               required: true
-       },
-       cart: [{
-              id: {
-                     type: String
-              },
-              title: {
-                     type: String
-              },
-              image: {
-                     type: String
-              },
-              description: {
-                     type: String
-              },
-              price: {
-                     type: String
-              },
-              brand: {
-                     type: String
-              },
-              model: {
-                     type: String
-              },
-              color: {
-                     type: String
-              },
-              category: {
-                     type: String
-              },
-              discount: {
-                     type: String
-              }
-       }]
+       }
 })
 const user = mongoose.model('Users', userSchema);
 module.exports = user;

@@ -3,7 +3,6 @@ const app = express();
 const dbConnection = require("./config/config")
 const dotenv=require("dotenv");
 const userroute = require("./routes/userroute")
-const cartroute = require("./routes/cartroute")
 const productroute = require("./routes/productroute")
 const categoriesroute = require("./routes/categoriesroute")
 const cookieParser = require('cookie-parser')
@@ -27,7 +26,6 @@ Products()
 Categories()
 app.use(categoriesroute)
 app.use(userroute)
-app.use(cartroute)
 app.use(productroute)
 
 app.get("/",(req,res)=>{
