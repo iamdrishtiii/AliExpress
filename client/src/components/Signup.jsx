@@ -200,7 +200,7 @@ const Signup = ({ setActive, setUser }) => {
               className="w-full px-4 py-2 border rounded-lg text-sm pr-10 focus:outline-none focus:ring-2 focus:ring-blue-400"
               placeholder="Password"
             />
-            <div className="absolute right-3 top-3 cursor-pointer" onClick={() => setShowPassword(!showPassword)}>
+            <div className="absolute right-3 top-8 cursor-pointer" onClick={() => setShowPassword(!showPassword)}>
               {showPassword ? <FaRegEyeSlash /> : <MdOutlineRemoveRedEye />}
             </div>
             {error.passwordError && <p className="text-sm text-red-500 mt-1">{error.passwordError}</p>}
@@ -216,7 +216,7 @@ const Signup = ({ setActive, setUser }) => {
               className="w-full px-4 py-2 border rounded-lg text-sm pr-10 focus:outline-none focus:ring-2 focus:ring-blue-400"
               placeholder="Repeat Password"
             />
-            <div className="absolute right-3 top-3 cursor-pointer" onClick={() => setRepeatShowPassword(!repeatShowPassword)}>
+            <div className="absolute right-3 top-8 cursor-pointer" onClick={() => setRepeatShowPassword(!repeatShowPassword)}>
               {repeatShowPassword ? <FaRegEyeSlash /> : <MdOutlineRemoveRedEye />}
             </div>
             {error.repeatPasswordError && <p className="text-sm text-red-500 mt-1">{error.repeatPasswordError}</p>}
