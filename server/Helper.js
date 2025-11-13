@@ -4,12 +4,13 @@ const categoriesSchema = require('./models/categoriesSchema')
 const Products = async () => {
     console.log('Fetching products...')
     try {
-        const response = await fetch("https://fakestoreapi.in/api/products", {
+        const response = await fetch("https://fakestoreapi.com/products", {
             method: 'GET',
         })
 
-
-        let { products } = await response.json()
+        let products = await response.json()
+        
+        // console.log(products)
 
         for (let product of products) {
             const exists = await ProductSchema.findOne({ id: String(product.id) })
@@ -39,10 +40,12 @@ const Products = async () => {
 const Categories = async () => {
     console.log("Fetching categories...")
     try {
-        const response = await fetch("https://fakestoreapi.in/api/products/category", {
+        const response = await fetch("https://fakestoreapi.com/products/categories", {
             method: "GET"
         })
-        let { categories } = await response.json()
+        
+        let categories = await response.json()  
+        // console.log(categories)
 
         for (let category of categories) {
             const exists = await categoriesSchema.findOne({ categories: category })

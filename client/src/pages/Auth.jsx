@@ -11,10 +11,11 @@ function Auth() {
     return savedUser ? JSON.parse(savedUser) : null
   })
 
+
+
   // Sync user state to localStorage when it changes
   useEffect(() => {
     if (user) { 
-      console.log(user)
       localStorage.setItem('user', JSON.stringify(user))
     } else {
       localStorage.removeItem('user')
@@ -36,6 +37,7 @@ function Auth() {
           <Login setActive={setActive} setUser={setUser} />
         )
       ) : (
+        
         <div className="pb-[500px] md:pb-[400px] lg:pb-[300px]">
           <Navbar />
           <div className="flex items-center justify-between p-4 bg-gradient-to-r from-orange-500 to-orange-700 rounded-lg shadow-md mx-4 md:mx-12">

@@ -26,13 +26,6 @@ const Wishlist = () => {
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {/* Wishlisted Product Grid */}
             {wishlistItems.map((item) => {
-              let discountedPrice = 0;
-              if (item.discount) {
-                discountedPrice = Math.round(item.price - (item.price * item.discount / 100));
-              }
-              else {
-                discountedPrice = (item.price)
-              }
               return (
                 <div
                   key={item.id}
@@ -45,9 +38,21 @@ const Wishlist = () => {
                   />
                   <h3 className="text-md font-semibold text-gray-800 line-clamp-3 mb-1">{item.title}</h3>
                   <p className="mt-2 text-sm text-gray-800 pl-1">Color : {item.color}</p>
-                  <p className="font-semibold text-orange-600 line-through pl-2">Rs. {item.price}</p>
-                  <p className="text-green-600 font-semibold flex flex-wrap gap-1"><FaLongArrowAltDown className='h-5' />{item.discount || 0}% OFF
-                    <p className="text-sm text-gray-700 pl-2 pb-6"> Rs. {discountedPrice}</p></p>
+                  <div className="mt-2">
+                    {item.discount ? (
+                      <div className="flex flex-col">
+                        <div className="flex items-center gap-2">
+                          <p className="text-gray-500 line-through">₹{item.price}</p>
+                          <p className="text-green-600 font-semibold">{item.discount}% OFF</p>
+                        </div>
+                        <p className="font-bold text-orange-500 mb-2">
+                          ₹{Math.round(item.price - (item.price * item.discount / 100))}
+                        </p>
+                      </div>
+                    ) : (
+                      <p className="font-bold text-orange-500 mb-2">₹{item.price}</p>
+                    )}
+                  </div>
 
                   <div className="mt-auto flex flex-col gap-3">
                     <button

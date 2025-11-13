@@ -6,6 +6,7 @@ import Wishlist from './pages/Wishlist'
 import Cart from './pages/Cart'
 import Auth from './pages/Auth'
 import DetailPage from './pages/DetailPage'
+import CheckoutPage from './pages/CheckoutPage'
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Route path='/cart' element={<Cart />} />
           <Route path='/auth' element={<Auth />} />
           <Route path='/:id/:color/:price/:brand' element={<DetailPage />} />
+          <Route path="/checkout" element={<CheckoutPage/>}/>
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -66,7 +66,7 @@ const Dashboard = () => {
           <img src="../Logo.webp" alt="Logo" className="w-36 h-16 sm:h-20 sm:w-48 sm:pl-12" />
 
           <div className="flex flex-col sm:flex-row rounded-full border border-gray-50 gap-2 shadow flex-1 sm:ml-8 mb-4 sm:mt-3">
-            <div className="flex flex-row text-lg flex-1 bg-white">
+            <div className="flex flex-row text-lg flex-1 bg-white relative">
               <input
                 type="text"
                 placeholder="Search for products..."
@@ -79,8 +79,8 @@ const Dashboard = () => {
                   if (value.trim()) {
                     // Filter products for suggestions
                     const matched = products
-                      .filter(item =>
-                        item.title.toLowerCase().includes(value.toLowerCase())
+                      .filter(item => String(item?.title || '').toLowerCase()
+                        .includes(String(value || '').toLowerCase())
                       )
                       .slice(0, 5); // Limit to 5 suggestions
                     setSuggestions(matched);
@@ -97,7 +97,7 @@ const Dashboard = () => {
                       key={item.id}
                       className="px-4 py-1 cursor-pointer line-clamp-1 hover:bg-gray-100"
                       onClick={() => {
-                        setInputValue(item.title);
+                        setInputValue("");
                         setSearchProduct(item.title);
                         setSuggestions([]);
                       }}
@@ -109,6 +109,8 @@ const Dashboard = () => {
               )}
               <button
                 onClick={() => {
+                  setInputValue("")
+                  setSuggestions("")
                   setSearchProduct(inputValue);
                   setCurrentPage(1);
                 }}
@@ -257,7 +259,22 @@ const Dashboard = () => {
                         <div className=' flex justify-center items-center'><img src={item.image} alt={item.title} className="h-40 w-40 mb-2" /></div>
                         <h3 className="font-semibold text-lg mb-1 line-clamp-2" data-testid="title">{item.title}</h3>
                         <p className="text-sm text-gray-800 ">Color : {item.color}</p>
-                        <p className="font-bold text-orange-500">₹{item.price}</p>
+                        <div className="mt-2">
+                          {item.discount ? (
+                            <div className="flex flex-col">
+                              <div className="flex items-center gap-2">
+                                <p className="text-gray-500 line-through">₹{item.price}</p>
+                                <p className="text-green-600 font-semibold">{item.discount}% OFF</p>
+                              </div>
+                              <p className="font-bold text-orange-500">
+                                ₹{Math.round(item.price - (item.price * item.discount / 100))}
+                              </p>
+                            </div>
+                          ) : (
+                            <p className="font-bold text-orange-500">₹{item.price}</p>
+                          )}
+                        </div>
+
                       </Link>
 
 
