@@ -129,7 +129,7 @@ const CheckoutPage = () => {
                                         checked={shipping === 10}
                                         onChange={() => setShipping(10)}
                                     />
-                                    Standard (Rs. 10)
+                                    Standard (₹10)
                                 </label>
                                 <label className="flex items-center gap-2">
                                     <input
