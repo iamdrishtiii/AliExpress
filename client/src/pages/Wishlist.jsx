@@ -12,6 +12,7 @@ const Wishlist = () => {
   const cartItems = useSelector((state) => state.cartItems);
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
   const wishCount = wishlistItems.reduce((total, item) => total + item.quantity, 0);
+  const token = localStorage.getItem("token")
 
   return (
     <div className="min-h-screen pb-[1150px] md:pb-[610px] lg:pb-[500px] bg-slate-100">
@@ -56,8 +57,14 @@ const Wishlist = () => {
 
                   <div className="mt-auto flex flex-col gap-3">
                     <button
-                      onClick={() => dispatch(addToCart(item))}
-                      className="bg-orange-500 text-white py-2 rounded-lg flex justify-center items-center gap-2 hover:bg-orange-600 "
+                    className="bg-orange-500 text-white py-2 rounded-lg flex justify-center items-center gap-2 hover:bg-orange-600 "
+                      onClick={() => {
+                        if (!token) {
+                              alert("You need to first login");
+                              return;
+                            }
+                            dispatch(addToCart(item))
+                      }}
                     >
                       <CiShoppingCart className="size-5" />
                       Add to Cart

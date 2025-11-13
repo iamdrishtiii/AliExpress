@@ -83,7 +83,7 @@ const Cart = () => {
                         </div>
 
                         <p className="font-semibold text-orange-600 mt-1">
-                          Total: Rs. {discountedPrice * item.quantity}
+                          Total: ₹{discountedPrice * item.quantity}
                         </p>
                       </div>
                       <button
@@ -103,7 +103,7 @@ const Cart = () => {
                 <h2 className="text-xl font-semibold text-gray-800 mb-2">Cart Summary</h2>
                 <div className="flex justify-between text-sm">
                   <span>Subtotal</span>
-                  <span>Rs. {subtotal}</span>
+                  <span>₹{subtotal}</span>
                 </div>
 
                 <div className="space-y-2 text-sm">
@@ -116,7 +116,7 @@ const Cart = () => {
                       checked={shipping === 0}
                       onChange={() => setShipping(0)}
                     />
-                    Free Shipping (Rs. 0)
+                    Free Shipping (₹0)
                   </label>
                   <label className="flex items-center gap-2">
                     <input
@@ -126,7 +126,7 @@ const Cart = () => {
                       checked={shipping === 10}
                       onChange={() => setShipping(10)}
                     />
-                    Standard (Rs. 10)
+                    Standard (₹10)
                   </label>
                   <label className="flex items-center gap-2">
                     <input
@@ -136,13 +136,13 @@ const Cart = () => {
                       checked={shipping === 20}
                       onChange={() => setShipping(20)}
                     />
-                    Express (Rs. 20)
+                    Express (₹20)
                   </label>
                 </div>
 
                 <div className="flex justify-between text-md font-semibold border-t pt-4">
                   <span>Total</span>
-                  <span>Rs. {subtotal + shipping}</span>
+                  <span>₹{subtotal + shipping}</span>
                 </div>
 
                 <Link to="/checkout">
