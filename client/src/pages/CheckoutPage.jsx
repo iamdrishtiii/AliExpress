@@ -40,7 +40,7 @@ const CheckoutPage = () => {
 
     if (!token) {
         return (
-            
+
             <div className="bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded-lg flex items-center gap-3 shadow-md max-w-md mx-auto mt-8">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -70,9 +70,9 @@ const CheckoutPage = () => {
                 </h2>
 
                 {cartItems.length === 0 ? (
-                    <p className="text-gray-600 text-lg">Your cart is empty.<br/>
-                    <Link to="/"><button className="bg-orange-400 px-4 py-2 my-3 text-white">Continue shopping!</button></Link></p>
-                    
+                    <p className="text-gray-600 text-lg">Your cart is empty.<br />
+                        <Link to="/"><button className="bg-orange-400 px-4 py-2 my-3 text-white">Continue shopping!</button></Link></p>
+
                 ) : (
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         {/* Order Summary */}
@@ -120,6 +120,16 @@ const CheckoutPage = () => {
                                         onChange={() => setShipping(0)}
                                     />
                                     Free Shipping (₹0)
+                                </label>
+                                <label className="flex items-center gap-2">
+                                    <input
+                                        type="radio"
+                                        name="shipping"
+                                        value={10}
+                                        checked={shipping === 10}
+                                        onChange={() => setShipping(10)}
+                                    />
+                                    Standard (Rs. 10)
                                 </label>
                                 <label className="flex items-center gap-2">
                                     <input
