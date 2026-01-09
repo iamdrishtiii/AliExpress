@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { CiHeart, CiShoppingCart } from 'react-icons/ci'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { addToCart, addToWishlist, decreaseQuantity, increaseQuantity } from '../action'
+import { addToCart, addToWishlist} from '../action'
 import { CgProfile } from 'react-icons/cg'
 import { BiHomeAlt } from 'react-icons/bi'
 import { FaMoneyCheckAlt, FaUndoAlt, FaTruck, FaShippingFast, FaAward } from 'react-icons/fa';
@@ -186,7 +186,6 @@ const DetailPage = () => {
                     onClick={() => {
                       if (!token) {
                         navigate("/auth");
-                        return;
                       }
                       const itemWithQuantity = { ...item, quantity: quantity[item.id] || 1 };
                       dispatch(addToCart(itemWithQuantity));
