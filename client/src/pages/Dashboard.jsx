@@ -8,7 +8,6 @@ import { CgProfile } from 'react-icons/cg';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 import { FaLongArrowAltDown } from 'react-icons/fa';
-import { toast } from 'react-toastify'
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(true);
@@ -153,6 +152,12 @@ const Dashboard = () => {
           </div>
         </div>
       </header>
+
+       {loading ? (
+          <div className="flex justify-center items-center h-96">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-orange-500"></div>
+          </div>
+        ) : (
       <div className=' sm:px-20'>
         <div className='flex flex-wrap '>
           {/* Category Filter */}
@@ -209,11 +214,7 @@ const Dashboard = () => {
           </div>
 
         </div>
-        {loading ? (
-          <div className="flex justify-center items-center h-96">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-orange-500"></div>
-          </div>
-        ) : (
+       
           <div className="px-6 mt-4 ">
             {/* Product Grid */}
             <h2 className="text-xl font-semibold mb-4 capitalize text-gray-600">{selectedCategory} Products</h2>
@@ -252,7 +253,6 @@ const Dashboard = () => {
             {currentProducts.length ? (
               <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {currentProducts.map((item) => {
-                  const discountedPrice = Math.round(item.price - (item.price * item.discount / 100));
                   return (
                     <div key={item.id} className="bg-white rounded-lg shadow hover:shadow-md hover:scale-105 p-2 flex flex-col justify-between" data-testid="card">
                       <Link to={`/${item.id}/${item.color}/${item.price}/${item.brand}`}>
@@ -365,7 +365,6 @@ const Dashboard = () => {
                 <p className="text-center text-red-500 text-lg">No products found.</p>
               )}
           </div>
-        )}
         {/* Pagination */}
         {totalPages > 1 && (
           <div className="mt-8 flex justify-center items-center gap-4">
@@ -386,7 +385,8 @@ const Dashboard = () => {
             </button>
           </div>
         )}
-      </div>
+      </div> 
+      )}
     </div>
   );
 };
