@@ -43,7 +43,7 @@ const Signup = ({ setActive, setUser }) => {
     let nError = error.nameError;
     let isValid = formValid;
 
-    if (name.trim().length < 3) {
+    if (name.trim().length < 2) {
       nError = "This is invalid";
       isValid = false;
     } else {
@@ -296,8 +296,7 @@ const Signup = ({ setActive, setUser }) => {
 
       <Modal open={openModal} onClose={() => setOpenModal(false)}>
         <Box sx={style}>
-          <Typography>
-            <div className="flex items-center gap-2 text-sm">
+          <Typography className="flex items-center gap-2 text-sm">
               {modalMessage === "Signup successful!" ? (
                 <>
                   <svg
@@ -327,7 +326,6 @@ const Signup = ({ setActive, setUser }) => {
                   <span>{modalMessage}</span>
                 </>
               )}
-            </div>
           </Typography>
         </Box>
       </Modal>

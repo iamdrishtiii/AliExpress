@@ -28,7 +28,6 @@ const signup = async (req, res) => {
                      email,
                      password: hashedPassword,
               });
-              console.log(newUser);
               
 
               // Save user to the database
@@ -45,8 +44,7 @@ const signup = async (req, res) => {
               });
 
        } catch (error) {
-              console.error("Error in signup route:", error);
-              res.status(500).json({ error: "Internal Server Error" });
+              res.status(500).json({ message: error });
        }
 }
 
