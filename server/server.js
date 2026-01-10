@@ -12,8 +12,7 @@ dotenv.config();
 const Helper = require("./Helper")
 app.use(express.json());
 app.use(cors({
-  origin:"*",
-  credentials:true
+  origin:"*"
 }));
 app.use(cookieParser());
 

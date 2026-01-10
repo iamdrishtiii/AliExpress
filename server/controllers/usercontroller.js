@@ -28,6 +28,8 @@ const signup = async (req, res) => {
                      email,
                      password: hashedPassword,
               });
+              console.log(newUser);
+              
 
               // Save user to the database
               await newUser.save();
