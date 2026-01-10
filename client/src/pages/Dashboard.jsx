@@ -91,7 +91,7 @@ const Dashboard = () => {
               <input
                 type="text"
                 placeholder="Search for products..."
-                className="flex-1 pl-1 sm:px-4 py-2 text-lg rounded-full bg-white"
+                className="flex-1 pl-1 sm:px-4 py-2 text-lg rounded-full bg-white focus:outline-none  focus:ring-2 focus:ring-orange-400 "
                 value={inputValue}
                 onChange={(e) => {
                   const value = e.target.value;
@@ -136,19 +136,20 @@ const Dashboard = () => {
                   ))}
                 </div>
               )}
-              <button
-                onClick={() => {
-                  setInputValue("");
-                  setSuggestions("");
-                  setSearchProduct(inputValue);
-                  setCurrentPage(1);
-                }}
-                className="hover:bg-gray-100 rounded-full pr-3 sm:px-5 transition"
-              >
-                <FaSearch className="text-xl" />
-              </button>
             </div>
           </div>
+
+          <button
+            onClick={() => {
+              setInputValue("");
+              setSuggestions("");
+              setSearchProduct(inputValue);
+              setCurrentPage(1);
+            }}
+            className="hover:bg-gray-100 rounded-full p-3 sm:px-5 transition"
+          >
+            <FaSearch className="text-xl" />
+          </button>
 
           <div className="flex justify-end gap-3 mx-3 sm:ml-12 lg:ml-8">
             {/* Wishlist Icon */}
