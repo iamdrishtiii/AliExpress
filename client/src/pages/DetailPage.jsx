@@ -200,7 +200,6 @@ const DetailPage = () => {
                     onClick={() => {
                       if (!token) {
                         alert("You need to login first")
-                        return;
                       }
                       const itemWithQuantity = { ...item, quantity: quantity[item.id] || 1 };
                       dispatch(addToCart(itemWithQuantity));
