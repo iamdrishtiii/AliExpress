@@ -99,7 +99,7 @@ const Dashboard = () => {
 
                   if (value.trim()) {
                     // Filter products for suggestions
-                    const matched = products
+                    const matched = (products || [])
                       .filter((item) => {
                         const firstWord = String(item?.title || "")
                           .trim()
