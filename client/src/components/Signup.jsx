@@ -151,7 +151,7 @@ const Signup = ({ setActive, setUser }) => {
             setOpenModal(false);
             navigate("/");
           }, 1000);
-          setUser(email);
+          setUser(userData);
           setName("");
           setEmail("");
           setPassword("");
