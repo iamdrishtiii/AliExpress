@@ -5,10 +5,19 @@ const User = require("../models/userSchema");
 const signup = async (req, res) => {
   try {
     // Extract name email and password from request body
-    const { name, email, password } = req.body;
+     let { name, email, password } = req.body;
 
     if (!name || !email || !password) {
       return res.status(400).json({ message: "Please enter credentials" });
+    }
+
+    name = name;
+    email = email.trim().toLowerCase();
+
+    // check if username already exists
+    const usernameExists = await User.findOne({ name });
+    if (usernameExists) {
+      return res.status(400).json({ error: "Username already exists" });
     }
 
     // Check if email is already registered

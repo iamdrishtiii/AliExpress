@@ -37,7 +37,7 @@ function Auth() {
       ) : (
         <div>
           <Navbar />
-          <div className="min-h-[500px] pb-[1150px] md:pb-[610px] lg:pb-[500px] ">
+          <div className="min-h-[500px] pb-[1190px] sm:pb-[1150px] md:pb-[610px] lg:pb-[500px] ">
             <div className="flex items-center justify-between p-4 bg-gradient-to-r from-orange-500 to-orange-700 rounded-lg shadow-md mx-4 md:mx-12">
               <h2 className="text-white text-lg font-semibold tracking-wide">
                 Welcome {user?.name || user}
@@ -48,6 +48,23 @@ function Auth() {
               >
                 Logout
               </button>
+            </div>
+            <div className="flex items-center justify-center pt-4">
+              <div className="bg-white shadow-xl rounded-2xl px-6 py-4 font-semibold text-md space-y-3">
+                <h1 className="flex items-center gap-2">
+                  <span className="text-gray-600">Name:</span>
+                  <span className="border border-gray-300 px-3 py-1 rounded-full bg-gray-50">
+                    {user.name}
+                  </span>
+                </h1>
+
+                <h1 className="flex items-center gap-2">
+                  <span className="text-gray-600">E-mail:</span>
+                  <span className="border border-gray-300 px-3 py-1 rounded-full bg-gray-50">
+                    {user.email}
+                  </span>
+                </h1>
+              </div>
             </div>
           </div>
           <Footer />
