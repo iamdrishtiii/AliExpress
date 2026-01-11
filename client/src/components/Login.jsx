@@ -110,10 +110,8 @@ const Login = ({ setActive, setUser }) => {
   };
 
 
-
-
   return (
-    <div className="flex flex-col min-h-screen pb-32 pb-[1150px] md:pb-[610px] lg:pb-[500px] bg-slate-100">
+    <div className="flex flex-col min-h-screen  bg-slate-100">
       <Navbar />
       <div className="flex flex-1 items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-xl shadow-xl">

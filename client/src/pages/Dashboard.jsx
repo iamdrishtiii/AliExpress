@@ -13,6 +13,7 @@ import { CgProfile } from "react-icons/cg";
 import { Link, useNavigate } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { FaLongArrowAltDown } from "react-icons/fa";
+import Footer from "../components/Footer";
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(true);
@@ -483,6 +484,7 @@ const Dashboard = () => {
           )}
         </div>
       )}
+      <Footer/>
     </div>
   );
 };

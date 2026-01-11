@@ -21,7 +21,6 @@ const App = () => {
           <Route path='/:id/:color/:price/:brand' element={<DetailPage />} />
           <Route path="/checkout" element={<CheckoutPage/>}/>
         </Routes>
-        <Footer />
       </BrowserRouter>
 
     </div>

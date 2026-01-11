@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromWishlist } from '../action';
 import Navbar from '../components/Navbar';
 import { FaLongArrowAltDown } from 'react-icons/fa';
+import Footer from '../components/Footer';
 
 const Wishlist = () => {
   const wishlistItems = useSelector((state) => state.wishlistItems);
@@ -83,6 +84,7 @@ const Wishlist = () => {
           </div>
         )}
       </div>
+      <Footer/>
     </div>
   );
 };

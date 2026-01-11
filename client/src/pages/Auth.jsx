@@ -29,7 +29,7 @@ function Auth() {
   }
 
   return (
-    <div>
+    <div className='min-h-full'>
       {!user ? (
         active === 0 ? (
           <Signup setActive={setActive} setUser={setUser} />
@@ -38,7 +38,7 @@ function Auth() {
         )
       ) : (
         
-        <div className="pb-[500px] md:pb-[400px] lg:pb-[300px]">
+        <div>
           <Navbar />
           <div className="flex items-center justify-between p-4 bg-gradient-to-r from-orange-500 to-orange-700 rounded-lg shadow-md mx-4 md:mx-12">
             <h2 className="text-white text-lg font-semibold tracking-wide">

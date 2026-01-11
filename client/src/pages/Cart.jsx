@@ -9,6 +9,7 @@ import {
 } from '../action';
 import Navbar from '../components/Navbar';
 import { FaLongArrowAltDown } from 'react-icons/fa';
+import Footer from '../components/Footer';
 
 const Cart = () => {
   const [shipping, setShipping] = useState(0);
@@ -27,8 +28,9 @@ const Cart = () => {
   return (
     <div className="min-h-screen pb-[1150px] md:pb-[610px] lg:pb-[500px] bg-slate-100">
       <Navbar />
-      {token ? (
-        <div><div className="px-4 md:px-8 py-8 max-w-6xl mx-auto">
+      <div className='min-h-[400px]'>
+        {token ? (
+        <div><div className=" min-h-[300px] px-4 md:px-8 py-8 max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold mb-6 text-gray-800">Shopping Cart</h2>
 
           {cartItems.length === 0 ? (
@@ -164,7 +166,8 @@ const Cart = () => {
         </div>
 
       )}
-
+      </div>
+<Footer/>
     </div>
   );
 };
