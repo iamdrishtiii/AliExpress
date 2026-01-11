@@ -60,9 +60,9 @@ const CheckoutPage = () => {
             </div>
         );
     }
-
+ 
     return (
-        <div className="min-h-screen bg-slate-100 pb-24 pb-[1150px] md:pb-[610px] lg:pb-[500px]">
+        <div className="min-h-screen bg-slate-100 ">
             <Navbar />
             <div className="max-w-4xl mx-auto px-6 py-10">
                 <h2 className="text-3xl font-bold mb-6 text-gray-800">
