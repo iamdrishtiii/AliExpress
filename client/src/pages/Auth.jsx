@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 import AddAddress from "../components/AddAddress";
 import SelectAddress from "../components/SelectAddress";
 import { Link } from "react-router-dom";
+import OrdersPage from "./OrdersPage";
 
 function Auth() {
   const [active, setActive] = useState(0);
@@ -42,7 +43,7 @@ function Auth() {
         <div>
           <Navbar />
           <div className="min-h-[500px] pb-[1190px] sm:pb-[1150px] md:pb-[610px] lg:pb-[500px] ">
-            <div className="flex items-center justify-between p-4 bg-gradient-to-r from-orange-500 to-orange-700 rounded-lg shadow-md mx-4 md:mx-12">
+            <div className="flex items-center justify-between p-4 bg-gradient-to-r from-orange-900 to-orange-600 rounded-lg shadow-md mx-4 md:mx-12">
               <h2 className="text-white text-lg font-semibold tracking-wide">
                 Welcome {user?.name || user}
               </h2>
@@ -68,12 +69,22 @@ function Auth() {
                     {user.email}
                   </span>
                 </h1>
+                <button>
+                  <Link
+                    to="/orders"
+                    className="inline-flex items-center mt-8 gap-2 px-5 py-2.5 
+             bg-yellow-700 text-white font-semibold rounded-lg
+             shadow-md hover:bg-yellow-800 hover:shadow-lg"
+                  >
+                    View Order History 
+                  </Link>
+                </button>
                 <SelectAddress />
                 <button>
                   <Link
                     to="/addaddress"
                     className="inline-flex items-center mt-8 gap-2 px-5 py-2.5 
-             bg-orange-500 text-white font-semibold rounded-lg
+             bg-orange-700 text-white font-semibold rounded-lg
              shadow-md hover:bg-orange-600 hover:shadow-lg"
                   >
                     + Add New Address

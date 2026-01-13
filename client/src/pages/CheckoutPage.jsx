@@ -3,15 +3,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart } from "../action";
 import Navbar from "../components/Navbar";
 import { Modal } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import { Dialog } from "@headlessui/react";
 import useAddresses from "../useAddresses";
 import AddAddress from "../components/AddAddress";
 import SelectAddress from "../components/SelectAddress";
 import toast from "react-hot-toast";
+import axios from "axios";
+import { Authurl } from "../assets/api";
 
 const CheckoutPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cartItems = useSelector((state) => state.cartItems);
   const token = localStorage.getItem("token");
   const { addresses } = useAddresses();
@@ -30,23 +33,52 @@ const CheckoutPage = () => {
 
   const total = subtotal + shipping;
 
-  const handlePlaceOrder = () => {
+  const handlePlaceOrder = async () => {
     if (cartItems.length === 0) return;
     if (!selectedAddress) {
       toast("Please select a delivery address");
       return;
     }
-    // Show success modal
-    setShowModal(true);
+
+    try {
+      // Prepare order data
+      const items = cartItems.map((item) => ({
+        productId: item.id,
+        title: item.title,
+        price: Math.round(
+          item.price - (item.price * (item.discount || 0)) / 100
+        ),
+        quantity: item.quantity,
+      }));
+
+      const orderData = {
+        items,
+        totalAmount: total,
+        shipping,
+        paymentMethod,
+        address: selectedAddress,
+      };
+
+      // Send order to backend
+      await axios.post(`${Authurl}/orders`, orderData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      // Show modal
+      setShowModal(true);
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to place order");
+    }
   };
 
   const handleCloseModal = () => {
     setShowModal(false);
-
-    // Clear all cart items
+    // Clear cart
     cartItems.forEach((item) => dispatch(removeFromCart(item.id)));
+    // Navigate to order history page
+    navigate("/orders");
   };
-
   if (!token) {
     return (
       <div className="bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded-lg flex items-center gap-3 shadow-md max-w-md mx-auto mt-8">

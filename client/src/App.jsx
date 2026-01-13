@@ -9,6 +9,7 @@ import DetailPage from "./pages/DetailPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import AddAddress from "./components/AddAddress";
 import { Toaster } from "react-hot-toast";
+import OrdersPage from "./pages/OrdersPage";
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
             <Route path="/:id/:color/:price/:brand" element={<DetailPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/addaddress" element={<AddAddress />} />
+            <Route path="/orders" element={<OrdersPage/>}/>
           </Routes>
         </BrowserRouter>
       </div>
