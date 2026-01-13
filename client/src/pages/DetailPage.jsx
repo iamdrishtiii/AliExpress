@@ -8,6 +8,7 @@ import { BiHomeAlt } from 'react-icons/bi'
 import { FaMoneyCheckAlt, FaUndoAlt, FaTruck, FaShippingFast, FaAward } from 'react-icons/fa';
 import { FaLongArrowAltDown } from 'react-icons/fa';
 const token = localStorage.getItem("token")
+import toast from 'react-hot-toast'
 
 const DetailPage = () => {
   const [quantity, setQuantity] = useState({});
@@ -199,7 +200,7 @@ const DetailPage = () => {
                     className="flex-1 border border-orange-500 text-orange-500 py-2 px-4 rounded-lg hover:bg-orange-50  flex items-center justify-center gap-2"
                     onClick={() => {
                       if (!token) {
-                        alert("You need to login first")
+                        toast("You need to login first")
                       }
                       const itemWithQuantity = { ...item, quantity: quantity[item.id] || 1 };
                       dispatch(addToCart(itemWithQuantity));

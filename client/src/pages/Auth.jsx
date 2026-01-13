@@ -3,6 +3,10 @@ import Signup from "../components/Signup";
 import Login from "../components/Login";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import AddAddress from "../components/AddAddress";
+import SelectAddress from "../components/SelectAddress";
+import { Link } from "react-router-dom";
+
 function Auth() {
   const [active, setActive] = useState(0);
   // Parse user object from localStorage on load
@@ -64,6 +68,17 @@ function Auth() {
                     {user.email}
                   </span>
                 </h1>
+                <SelectAddress />
+                <button>
+                  <Link
+                    to="/addaddress"
+                    className="inline-flex items-center mt-8 gap-2 px-5 py-2.5 
+             bg-orange-500 text-white font-semibold rounded-lg
+             shadow-md hover:bg-orange-600 hover:shadow-lg"
+                  >
+                    + Add New Address
+                  </Link>
+                </button>
               </div>
             </div>
           </div>

@@ -14,6 +14,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { FaLongArrowAltDown } from "react-icons/fa";
 import Footer from "../components/Footer";
+import toast from 'react-hot-toast'
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(true);
@@ -436,7 +437,7 @@ const Dashboard = () => {
                           className="border border-orange-500 text-orange-500 rounded-lg py-1 hover:bg-orange-50"
                           onClick={() => {
                             if (!token) {
-                              alert("You need to first login");
+                              toast("You need to first login");
                               return;
                             }
                             const itemWithQuantity = {

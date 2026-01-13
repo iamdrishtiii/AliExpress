@@ -5,6 +5,7 @@ import { addToCart, removeFromWishlist } from '../action';
 import Navbar from '../components/Navbar';
 import { FaLongArrowAltDown } from 'react-icons/fa';
 import Footer from '../components/Footer';
+import toast from 'react-hot-toast'
 
 const Wishlist = () => {
   const wishlistItems = useSelector((state) => state.wishlistItems);
@@ -61,7 +62,7 @@ const Wishlist = () => {
                     className="bg-orange-500 text-white py-2 rounded-lg flex justify-center items-center gap-2 hover:bg-orange-600 "
                       onClick={() => {
                         if (!token) {
-                              alert("You need to first login");
+                              toast("You need to first login");
                               return;
                             }
                             dispatch(addToCart(item))
